@@ -920,6 +920,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void discoveryStart() {
+        Log.e("discoveryStart()", "init");
 
         List<ScanFilter> filters= new ArrayList<>();
         ScanFilter scan_filter= new ScanFilter.Builder()
@@ -1073,6 +1074,19 @@ public class HomeActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(this, "기능 사용을 위한 권한 동의가 필요합니다.", Toast.LENGTH_SHORT);
                     toast.show();
                 }
+                break;
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_ENABLE_BT:
+                if (resultCode == RESULT_OK) {
+                    Log.e("BT 활성화 ", "OK");
+                    checkPermission();
+                } else if (resultCode==RESULT_CANCELED) {
+                    Log.e("BT 활성화 ", "NO");
+                } else Log.e("BT 활성화 ", resultCode+"");
                 break;
         }
     }
@@ -2354,10 +2368,12 @@ public class HomeActivity extends AppCompatActivity {
             imageView2.setImageResource(R.drawable.bdev);
         else imageView2.setImageResource(R.drawable.ellipsehomethera_icon);
         if (deviceBattery==-1) {
-            Log.e("여기서", "부름");
             imageView2.setImageResource(R.drawable.nondeviceicon);
             isConn = false;
-            disconnectGattServer();
+            if (isFirst == false) {
+                Log.e("여기서", "부름");
+                disconnectGattServer();
+            }
         }
 
         getDataMois();

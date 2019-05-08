@@ -4,7 +4,7 @@
 
 
 set(pathOpenCv C:/OpenCV-android-sdk)
-set(pathProject C:/Users/dbwlt/AndroidStudioProjects/demo-1.1-2)
+set(pathProject C:/Users/user/AndroidStudioProjects/rezrez)
 set(pathLIBOPENCV_JAVA ${pathPROJECT}/app/src/main/JniLibs/${ANDROID_ABI}/libopencv_java3.so)
 
 cmake_minimum_required(VERSION 3.4.1)
