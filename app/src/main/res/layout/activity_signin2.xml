@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2960"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="350"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/signinprofile"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="460"
+            android:src="@drawable/no_profile"
+            android:visibility="gone"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="330"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1527"
+            android:weightSum="1"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:weightSum="1440"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="200"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1160"
+                    android:weightSum="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.07"
+                        android:textSize="15sp"
+                        android:text=" NAME"
+                        android:letterSpacing="0.1"
+                        android:fontFamily="@font/roboto"
+                        android:textColor="#ACAABE"
+                        android:gravity="center_vertical" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.14"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <EditText
+                            android:lines="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.9"
+                            android:ems="10"
+                            android:letterSpacing="0.1"
+                            android:singleLine="true"
+                            android:hint="ENTER YOUR NAME"
+                            android:textColorHint="#4DACAABE"
+                            android:id="@+id/name" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.08" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.07"
+                        android:textSize="15sp"
+                        android:text=" GENDER"
+                        android:letterSpacing="0.1"
+                        android:fontFamily="@font/roboto"
+                        android:textColor="#ACAABE"
+                        android:gravity="center_vertical" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.1"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        ﻿<Spinner
+                        android:overlapAnchor="false"
+                        android:spinnerMode="dropdown"
+                        android:id="@+id/gender"
+                        android:entries="@array/gender"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.9" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.08" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.07"
+                        android:textSize="15sp"
+                        android:text=" BIRTHDAY"
+                        android:letterSpacing="0.1"
+                        android:fontFamily="@font/roboto"
+                        android:textColor="#ACAABE"
+                        android:gravity="center_vertical" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.1"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.08" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.07"
+                        android:textSize="15sp"
+                        android:letterSpacing="0.1"
+                        android:text=" COUNTRY"
+                        android:fontFamily="@font/roboto"
+                        android:textColor="#ACAABE"
+                        android:gravity="center_vertical" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.1"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        ﻿<Spinner
+                        android:overlapAnchor="false"
+                        android:entries="@array/country"
+                        android:spinnerMode="dropdown"
+                        android:id="@+id/country"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.9" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"></LinearLayout>
+        <LinearLayout
+            android:id="@+id/signin_signin2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="300"
+            android:orientation="vertical"
+            android:weightSum="1"
+            android:background="@drawable/loginrectanglelong">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.17"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.65"
+                android:text="LET'S START"
+                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:letterSpacing="0.1"
+                android:textSize="15sp"
+                android:fontFamily="@font/roboto"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2960"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1660"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="150"
+            android:weightSum="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.12"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.75"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.935"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+                    ﻿<Spinner
+                    android:overlapAnchor="false"
+                    android:spinnerMode="dropdown"
+                    android:id="@+id/birthday_year"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.34" />
+                    ﻿<Spinner
+                    android:overlapAnchor="false"
+                    android:spinnerMode="dropdown"
+                    android:id="@+id/birthday_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.28" />
+                    ﻿<Spinner
+                    android:overlapAnchor="false"
+                    android:spinnerMode="dropdown"
+                    android:id="@+id/birthday_day"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.28" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

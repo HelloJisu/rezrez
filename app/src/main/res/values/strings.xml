@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">YoungNbe</string>
+
+    <string name="q1">"1 _ I drink more than seven drinks a week:"</string>
+    <string name="q2">"2 _ I sleep more than six or seven hours a day:"</string>
+    <string name="q3">"3 _ I eat three meals a day regularly:"</string>
+    <string name="q4">"4 _ Bread, snacks, noodles, and fast food intake are high:"</string>
+
+    <string name="q5">"5 _ I usually wash my face under running water when I wash my face:"</string>
+    <string name="q6">"6 _ Do you ever get itchy, burnt, or red skin when you apply sunscreen?"</string>
+    <string name="q7">"7 _ Have you ever burned your skin for less than two weeks a year?"</string>
+    <string name="q8">"8 _ I smoke more than one pack a week:"</string>
+
+    <string name="q9">"9 _ Does your parents have trouble using accessories that are not gold?"</string>
+    <string name="q10">"10 _ Do your parents have oily faces?"</string>
+    <string name="q11">"11 _ Does your parents facial skin looks older then their age?"</string>
+    <string name="q12">"12 _ Do any of your parents have freckles?"</string>
+
+    <string name="q13">"13 _ when you look in the mirror, your facial skin looks older than your age?"</string>
+    <string name="q14">"14 _ when you look in the mirror, are there many large holes that are the size of a pin's end or bigger?"</string>
+    <string name="q15">"15 _ How many red or blue blood vessels do you have on your face or nose?"</string>
+    <string name="q16">"16 _ Do you have spots or brown spots on your upper teeth or cheeks?"</string>
+    <string name="facebook_app_id">829438980739118</string>
+    <string name="client_id">c3bbe70b4b274e4b948bd974928da387</string>
+    <string name="base_url">https://api.instagram.com/</string>
+    <string name="redirect_url">https://api.instagram.com/</string>
+    <string name="get_user_info_url">https://api.instagram.com/v1/users/self/?access_token=</string>
+</resources>

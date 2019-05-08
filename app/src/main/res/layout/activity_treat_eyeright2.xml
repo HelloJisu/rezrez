@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/treatayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="411dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/eyerightback"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="2960"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="460"
+                tools:ignore="Orientation" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1970"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="570"
+                tools:ignore="Orientation" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="2960"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="430"
+                android:weightSum="1"
+                android:background="#80FFFFFF"
+                android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:letterSpacing="0.1"
+                        android:text="CARE GUIDE"
+                        android:textAlignment="center"
+                        android:textColor="#FFFFFF"
+                        android:textSize="13sp"
+                        app:fontFamily="@font/roboto_black"
+                        tools:layout_editor_absoluteX="176dp"
+                        tools:layout_editor_absoluteY="25dp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2000"
+                android:weightSum="1"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.05"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.87"
+                    android:weightSum="1440"
+                    android:orientation="horizontal">
+                    <com.ssomai.android.scalablelayout.ScalableLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        app:scale_base_width="1440"
+                        app:scale_base_height="1800">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:scale_height=" 962.7"
+                            app:scale_left="550"
+                            app:scale_top="515"
+                            app:scale_width="511.69"
+                            app:srcCompat="@drawable/noneyeright"
+                            tools:ignore="MissingPrefix" />
+
+                        <ImageView
+                            android:id="@+id/e_tright_line1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:scale_height="194"
+                            app:scale_left="697"
+                            app:scale_top="552"
+                            app:scale_width="265.45"
+                            android:background="@drawable/eyerightanim1"                             tools:ignore="MissingPrefix" />
+
+
+                        <ImageView
+                            android:id="@+id/e_tright_line2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:scale_height="150"
+                            app:scale_left="707"
+                            app:scale_top="671"
+                            app:scale_width="285.45"
+                            tools:ignore="MissingPrefix"
+                            android:background="@drawable/eyerightanim2"/>
+
+                        <ImageView
+                            android:id="@+id/e_tright_line3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:scale_height="73"
+                            app:scale_left="712"
+                            app:scale_top="821"
+                            app:scale_width="275.45"
+                            tools:ignore="MissingPrefix"
+                            android:background="@drawable/eyerightanim3"/>
+
+                        <ImageView
+                            android:id="@+id/e_tright_line4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:scale_height="25"
+                            app:scale_left="711"
+                            app:scale_top="955"
+                            app:scale_width="275.45"
+                            tools:ignore="MissingPrefix"
+                            android:background="@drawable/eyerightanim4"/>
+
+                        <ImageView
+                            android:id="@+id/e_tright_line5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:scale_height="73"
+                            app:scale_left="692"
+                            app:scale_top="1046"
+                            app:scale_width="275.45"
+                            tools:ignore="MissingPrefix"
+                            android:background="@drawable/eyerightanim5"/>
+
+                        <ImageView
+                            android:id="@+id/e_tright_line6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:scale_height="150"
+                            app:scale_left="649"
+                            app:scale_top="1108"
+                            app:scale_width="275.45"
+                            tools:ignore="MissingPrefix"
+                            android:background="@drawable/eyerightanim6"/>
+
+                        <ImageView
+                            android:id="@+id/e_tright_line7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:scale_height="194"
+                            app:scale_left="597"
+                            app:scale_top="1177"
+                            app:scale_width="265.45"
+                            tools:ignore="MissingPrefix"
+                            android:background="@drawable/eyerightanim7"/>
+
+
+                        <TextView
+                            android:id="@+id/e_tright_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="7 left"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            app:fontFamily="@font/roboto"
+                            app:scale_height="108"
+                            app:scale_left="458"
+                            app:scale_textsize="70"
+                            app:scale_top="1399"
+                            app:scale_width="257"
+                            tools:ignore="MissingPrefix" />
+
+
+                    </com.ssomai.android.scalablelayout.ScalableLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="570"
+                android:weightSum="1"
+                android:orientation="vertical"
+                android:background="#80FFFFFF">
+
+                <TextView
+                    android:id="@+id/direction"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.2"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    app:fontFamily="@font/roboto_black"
+                    android:letterSpacing="0.1" />
+
+                <TextView
+                    android:id="@+id/componenttxt_er"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_weight="0.7"
+                    android:letterSpacing="0.1"
+                    android:gravity="center"
+                    android:text="THIS COLUMN HAS 7 LINES.\nPLACE THE DEVICE TO THE COLORED\nLINE AS SHOWN. AND PRESS THE CENTER\nBUTTON TO START TREATING ONE LINE"
+                    android:textAlignment="center"
+                    android:textColor="#180018"
+                    app:fontFamily="@font/roboto" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2960"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2430"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="570"
+            android:weightSum="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                app:fontFamily="@font/roboto" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.8"
+                android:weightSum="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/backbutton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:weightSum="1"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.25"
+                        android:weightSum="1"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.28"/>
+                        <ImageView
+                            android:id="@+id/backw"
+                            app:srcCompat="@drawable/backw"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.25"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.025"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.09"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.0375"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.13"
+                android:weightSum="1"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.15"/>
+                <ImageView
+                    android:id="@+id/question_er"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.75"
+                    app:srcCompat="@drawable/askimg"
+                    tools:ignore="MissingConstraints" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6425"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.13"
+                android:weightSum="1"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.15"/>
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.75"
+                    app:srcCompat="@drawable/nondeviceicon"
+                    tools:ignore="MissingConstraints" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <!--underleft-->
+
+
+    <!--cheekright-->
+
+
+    <!--cheekleft-->
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>

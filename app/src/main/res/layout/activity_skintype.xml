@@ -1,0 +1,1218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".MoistureActivity">
+
+    <LinearLayout
+        android:id="@+id/content3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2960"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="300"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.85"/>
+            <LinearLayout
+                android:id="@+id/imageButton3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.15"
+                tools:ignore="Orientation" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="959"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4.7"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="22.4"/>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/progress" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="22.4"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="0.4"
+                android:layout_height="match_parent"
+                android:background="@drawable/progress" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="22.4"/>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/progress" />
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="366"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4.7"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="22.4"/>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/progress" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="22.4"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="0.4"
+                android:layout_height="match_parent"
+                android:background="@drawable/progress" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="22.4"/>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/progress" />
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="369"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4.7"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="22.4"/>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/progress" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="22.4"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="0.4"
+                android:layout_height="match_parent"
+                android:background="@drawable/progress" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="22.4"/>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/progress" />
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="370"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4.7"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="22.4"/>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/progress" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="22.4"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="0.4"
+                android:layout_height="match_parent"
+                android:background="@drawable/progress" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="22.4"/>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/progress" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2960"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="300"
+            android:weightSum="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.04"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.65"
+                android:orientation="vertical"
+                android:weightSum="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="Skin Type Survey"
+                    android:textColor="#180018"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/roboto" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"/>
+            <LinearLayout
+                android:id="@+id/imageButton2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:weightSum="1"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:weightSum="1"
+                    android:orientation="horizontal">
+                    <ImageButton
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.55"
+                        android:scaleType="fitCenter"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/xicon"
+                        android:layout_alignParentRight="true"
+                        tools:ignore="MissingPrefix" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2360">
+
+            <!-- content1 -->
+            <LinearLayout
+                android:id="@+id/content1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.15"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Let's find out your skin type!"
+                    android:textColor="#180018"
+                    android:textSize="13sp"
+                    app:fontFamily="@font/roboto" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.1"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+                    
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.6">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No"
+                            android:layout_marginLeft="20dp"
+                            android:textSize="15sp"
+                            android:layout_centerVertical="true"
+                            android:textColor="#9E0958"
+                            app:fontFamily="@font/roboto"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Soso"
+                            android:textSize="15sp"
+                            android:layout_centerInParent="true"
+                            android:textColor="#9E0958"
+                            app:fontFamily="@font/roboto"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Yes"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="20dp"
+                            android:textSize="15sp"
+                            android:layout_centerVertical="true"
+                            android:textColor="#9E0958"
+                            app:fontFamily="@font/roboto"/>
+                    </RelativeLayout>
+
+
+
+                </LinearLayout>
+
+                <!-- Q1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.16"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.05"/>
+                    <TextView
+                        android:id="@+id/q1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.9"
+                        android:textSize="13sp"
+                        android:text="1"
+                        android:gravity="center_vertical"
+                        android:textColor="#80000000"
+                        app:fontFamily="@font/roboto"/>
+                </LinearLayout>
+
+                <!-- Seek Bar -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:background="#33180018" />
+
+                    <View
+                        android:layout_width="1.5dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="25dp"
+                        android:background="#33180018" />
+
+                    <View
+                        android:layout_width="1.5dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="25dp"
+                        android:background="#33180018"
+                        android:layout_alignParentRight="true" />
+
+                    <SeekBar
+                        android:id="@+id/s1"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:max="4"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:progressDrawable="@android:color/transparent"
+                        android:thumb="@drawable/touch" />
+
+                </RelativeLayout>
+
+                <!-- Q2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.16"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.05"/>
+                    <TextView
+                        android:id="@+id/q2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.9"
+                        android:textSize="13sp"
+                        android:gravity="center_vertical"
+                        android:text="2"
+                        android:textColor="#80000000"
+                        app:fontFamily="@font/roboto"/>
+                </LinearLayout>
+                <!-- Seek Bar -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:background="#33180018" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="25dp"
+                        android:background="@drawable/progress" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="25dp"
+                        android:background="@drawable/progress"
+                        android:layout_alignParentRight="true" />
+
+                    <SeekBar
+                        android:id="@+id/s2"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:max="4"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:progressDrawable="@android:color/transparent"
+                        android:thumb="@drawable/touch" />
+
+                </RelativeLayout>
+
+                <!-- Q3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.16"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.05"/>
+                    <TextView
+                        android:id="@+id/q3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.9"
+                        android:textSize="13sp"
+                        android:text="3"
+                        android:gravity="center_vertical"
+                        android:textColor="#80000000"
+                        app:fontFamily="@font/roboto"/>
+                </LinearLayout>
+
+                <!-- Seek Bar -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:background="@drawable/progress" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="25dp"
+                        android:background="@drawable/progress" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="25dp"
+                        android:background="@drawable/progress"
+                        android:layout_alignParentRight="true" />
+
+                    <SeekBar
+                        android:id="@+id/s3"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:max="4"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:progressDrawable="@android:color/transparent"
+                        android:thumb="@drawable/touch" />
+
+                </RelativeLayout>
+
+                <!-- Q4 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.16"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.05"/>
+                    <TextView
+                        android:id="@+id/q4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.9"
+                        android:textSize="13sp"
+                        android:text="4"
+                        android:gravity="center_vertical"
+                        android:textColor="#80000000"/>
+                </LinearLayout>
+
+                <!-- Seek Bar -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:background="@drawable/progress" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="25dp"
+                        android:background="@drawable/progress" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="25dp"
+                        android:background="@drawable/progress"
+                        android:layout_alignParentRight="true" />
+
+                    <SeekBar
+                        android:id="@+id/s4"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:max="4"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:progressDrawable="@android:color/transparent"
+                        android:thumb="@drawable/touch" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <!-- content2 -->
+            <LinearLayout
+                android:id="@+id/content2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="2960"
+                android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1915"
+                android:weightSum="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.2"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.4"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.8"
+                        android:text="Well done! \nWe have figured out your skin type among16 different ones."
+                        android:textColor="#180018"
+                        android:gravity="center"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.02"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.25"
+                    android:text=""
+                    android:id="@+id/skintypetxt"
+                    android:textColor="#180018"
+                    android:fontFamily="@font/roboto_black"
+                    android:gravity="center"
+                    android:textSize="21sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="154"
+                android:orientation="horizontal"
+                android:weightSum="1440">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="179"/>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="100">
+                    <at.grabner.circleprogress.CircleProgressView
+                        android:id="@+id/moisture_c2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        app:cpv_barWidth="2dp"
+                        app:cpv_rimWidth="1dp"
+                        app:cpv_autoTextSize="true"
+                        app:cpv_innerContourSize="0dp"
+                        app:cpv_outerContourSize="0dp"
+                        app:cpv_barColor="#aa9e0958"
+                        app:cpv_rimColor="#FFFFFF"
+                        app:cpv_textColor="#00ffffff"
+                        app:cpv_maxValue="100"
+                        app:cpv_showUnit="true"
+                        app:cpv_value="100"
+                        app:cpv_unitPosition="bottom"
+                        app:cpv_textMode="Value" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="146"/>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="100">
+                    <at.grabner.circleprogress.CircleProgressView
+                        android:id="@+id/oil_c2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        app:cpv_barWidth="2dp"
+                        app:cpv_rimWidth="1dp"
+                        app:cpv_autoTextSize="true"
+                        app:cpv_innerContourSize="0dp"
+                        app:cpv_outerContourSize="0dp"
+                        app:cpv_barColor="#aa70095f"
+                        app:cpv_rimColor="#FFFFFF"
+                        app:cpv_value="100"
+                        app:cpv_textColor="#00ffffff"
+                        app:cpv_maxValue="100"
+                        app:cpv_showUnit="true"
+                        app:cpv_unitPosition="bottom"
+                        app:cpv_textMode="Value" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="146"/>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="100">
+                    <at.grabner.circleprogress.CircleProgressView
+                        android:id="@+id/res_c2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        app:cpv_autoTextSize="true"
+                        app:cpv_barWidth="2dp"
+                        app:cpv_rimWidth="1dp"
+                        app:cpv_value="100"
+                        app:cpv_innerContourSize="0dp"
+                        app:cpv_outerContourSize="0dp"
+                        app:cpv_barColor="#aa450969"
+                        app:cpv_rimColor="#FFFFFF"
+                        app:cpv_textColor="#00ffffff"
+                        app:cpv_maxValue="100"
+                        app:cpv_showUnit="true"
+                        app:cpv_unitPosition="bottom"
+                        app:cpv_textMode="Value" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="146"/>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="100">
+                    <at.grabner.circleprogress.CircleProgressView
+                        android:id="@+id/elas_c2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        app:cpv_autoTextSize="true"
+                        app:cpv_innerContourSize="0dp"
+                        app:cpv_barWidth="2dp"
+                        app:cpv_rimWidth="1dp"
+                        app:cpv_outerContourSize="0dp"
+                        app:cpv_barColor="#aa30064a"
+                        app:cpv_rimColor="#FFFFFF"
+                        app:cpv_textColor="#00ffffff"
+                        app:cpv_value="100"
+                        app:cpv_maxValue="100"
+                        app:cpv_showUnit="true"
+                        app:cpv_unitPosition="bottom"
+                        app:cpv_textMode="Value" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="146"/>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="100">
+                    <at.grabner.circleprogress.CircleProgressView
+                        android:id="@+id/anti2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        app:cpv_autoTextSize="true"
+                        app:cpv_innerContourSize="0dp"
+                        app:cpv_outerContourSize="0dp"
+                        app:cpv_barColor="#a6180018"
+                        app:cpv_barWidth="2dp"
+                        app:cpv_rimWidth="1dp"
+                        app:cpv_rimColor="#FFFFFF"
+                        app:cpv_textColor="#00ffffff"
+                        app:cpv_maxValue="100"
+                        app:cpv_value="100"
+                        app:cpv_showUnit="true"
+                        app:cpv_unitPosition="bottom"
+                        app:cpv_textMode="Value" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="111"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="85"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.775"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.18"
+                    android:text="anti pigment"
+                    android:textSize="10sp"
+                    android:textColor="#73180018"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/content4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="2960"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1795"></LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="600"
+                    android:weightSum="1440"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="120"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="218"
+                        android:weightSum="1"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.05"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.55">
+                            <at.grabner.circleprogress.CircleProgressView
+                                android:id="@+id/moisture_c"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                app:cpv_barWidth="15sp"
+                                app:cpv_rimWidth="15sp"
+                                app:cpv_autoTextSize="true"
+                                app:cpv_innerContourSize="0dp"
+                                app:cpv_outerContourSize="0dp"
+                                app:cpv_barColor="#B21568"
+                                app:cpv_rimColor="#4DD6D5DD"
+                                app:cpv_textColor="#00ffffff"
+                                app:cpv_maxValue="100"
+                                app:cpv_showUnit="true"
+                                app:cpv_unitPosition="bottom"
+                                app:cpv_textMode="Value" />
+                        </RelativeLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.3"
+                            android:text="moisture"
+                            android:textSize="10sp"
+                            android:textColor="#73180018"
+                            android:gravity="center" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="28"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="218"
+                        android:weightSum="1"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.05"></LinearLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.55">
+                            <at.grabner.circleprogress.CircleProgressView
+                                android:id="@+id/oil_c"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                app:cpv_barWidth="15sp"
+                                app:cpv_rimWidth="15sp"
+                                app:cpv_autoTextSize="true"
+                                app:cpv_innerContourSize="0dp"
+                                app:cpv_outerContourSize="0dp"
+                                app:cpv_barColor="#871674"
+                                app:cpv_rimColor="#4DD6D5DD"
+                                app:cpv_textColor="#00ffffff"
+                                app:cpv_maxValue="100"
+                                app:cpv_showUnit="true"
+                                app:cpv_unitPosition="bottom"
+                                app:cpv_textMode="Value" />
+                        </RelativeLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.3"
+                            android:text="oil balance"
+                            android:textSize="10sp"
+                            android:textColor="#73180018"
+                            android:gravity="center"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="28"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="218"
+                        android:weightSum="1"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.05" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.55">
+                            <at.grabner.circleprogress.CircleProgressView
+                                android:id="@+id/res_c"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                app:cpv_autoTextSize="true"
+                                app:cpv_barWidth="15sp"
+                                app:cpv_rimWidth="15sp"
+                                app:cpv_innerContourSize="0dp"
+                                app:cpv_outerContourSize="0dp"
+                                app:cpv_barColor="#581C7C"
+                                app:cpv_rimColor="#4DD6D5DD"
+                                app:cpv_textColor="#00ffffff"
+                                app:cpv_maxValue="100"
+                                app:cpv_showUnit="true"
+                                app:cpv_unitPosition="bottom"
+                                app:cpv_textMode="Value" />
+                        </RelativeLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.3"
+                            android:text="resistancy"
+                            android:textSize="10sp"
+                            android:textColor="#73180018"
+                            android:gravity="center"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="28"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="218"
+                        android:weightSum="1"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.05"></LinearLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.55">
+                            <at.grabner.circleprogress.CircleProgressView
+                                android:id="@+id/elas_c"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                app:cpv_autoTextSize="true"
+                                app:cpv_innerContourSize="0dp"
+                                app:cpv_barWidth="15sp"
+                                app:cpv_rimWidth="15sp"
+                                app:cpv_outerContourSize="0dp"
+                                app:cpv_barColor="#441162"
+                                app:cpv_rimColor="#4DD6D5DD"
+                                app:cpv_textColor="#00ffffff"
+                                app:cpv_maxValue="100"
+                                app:cpv_showUnit="true"
+                                app:cpv_unitPosition="bottom"
+                                app:cpv_textMode="Value" />
+                        </RelativeLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.3"
+                            android:text="elasticity"
+                            android:textSize="10sp"
+                            android:textColor="#73180018"
+                            android:gravity="center"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="28"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="218"
+                        android:weightSum="1"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.05"></LinearLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.55">
+                            <at.grabner.circleprogress.CircleProgressView
+                                android:id="@+id/anti"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                app:cpv_autoTextSize="true"
+                                app:cpv_innerContourSize="0dp"
+                                app:cpv_outerContourSize="0dp"
+                                app:cpv_barColor="#2D002D"
+                                app:cpv_barWidth="15sp"
+                                app:cpv_rimWidth="15sp"
+                                app:cpv_rimColor="#4DD6D5DD"
+                                app:cpv_textColor="#00ffffff"
+                                app:cpv_maxValue="100"
+                                app:cpv_showUnit="true"
+                                app:cpv_unitPosition="bottom"
+                                app:cpv_textMode="Value" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7"
+            android:weightSum="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.08"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.84"
+                android:background="@drawable/popupline"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_weight="300">
+
+            <TextView
+                android:id="@+id/again"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:textFontWeight="500"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Again"
+                android:textColor="#450969"
+                app:fontFamily="@font/roboto"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.497">
+
+                <TextView
+                    android:id="@+id/pre"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textFontWeight="500"
+                    android:textSize="14sp"
+                    android:text="Go back to \nprevious page"
+                    android:textColor="#450969"
+                    app:fontFamily="@font/roboto"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.003"
+                android:orientation="vertical"
+                android:weightSum="1">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.1"/>
+                <LinearLayout
+                    android:id="@+id/centerline"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.75"
+                    android:background="@drawable/popupline2"
+                    tools:ignore="Orientation"></LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.497">
+
+                <TextView
+                    android:id="@+id/next"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:textFontWeight="500"
+                    android:padding="10dp"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:text="Next"
+                    android:textColor="#450969"
+                    app:fontFamily="@font/roboto"/>
+
+                <TextView
+                    android:id="@+id/done"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp"
+                    android:textFontWeight="500"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:text="Done"
+                    android:textColor="#450969"
+                    app:fontFamily="@font/roboto"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2960"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="300"
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.85"/>
+        <LinearLayout
+            android:id="@+id/imageButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            tools:ignore="Orientation" />
+    </LinearLayout>
+    </LinearLayout>
+
+</android.widget.RelativeLayout>
