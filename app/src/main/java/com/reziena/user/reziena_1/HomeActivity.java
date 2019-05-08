@@ -1865,13 +1865,44 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 percent.setText(String.valueOf(percentint)+" %");
 
+                Log.e("allcount",String.valueOf(allcount));
+
+
 
                 if(count!=0){
+                    int tenRemainder = ((allcount)+1/5+1) % 10;
+                    Log.e("ㅇㅇ",String.valueOf(tenRemainder));
+                    if(String.valueOf(tenRemainder).equals("1")){
+                        weektxt.setText(String.valueOf((allcount)/5+1)+"ST");
+                    }
+                    else if(String.valueOf(tenRemainder).equals("2")){
+                        weektxt.setText(String.valueOf((allcount)/5+1)+"ND");
+                    }
+                    else if(String.valueOf(tenRemainder).equals("3")){
+                        weektxt.setText(String.valueOf((allcount)/5+1)+"RD");
+                    }
+                    else {
+                        weektxt.setText(String.valueOf((allcount) / 5 + 1) + "TH");
+                    }
                     xcount.setText(String.valueOf(allcount+1-countCheck));
-                    weektxt.setText(String.valueOf((allcount+1)/5+1)+"ST");
+                }
+                String st2;
+                int tenRemainder = ((allcount)/5+1) % 10;
+                Log.e("ㅇㅇ",String.valueOf(tenRemainder));
+                if(String.valueOf(tenRemainder).equals("1")){
+                    weektxt.setText(String.valueOf((allcount)/5+1)+"ST");
+                }
+                else if(String.valueOf(tenRemainder).equals("2")){
+                    weektxt.setText(String.valueOf((allcount)/5+1)+"ND");
+                }
+                else if(String.valueOf(tenRemainder).equals("3")){
+                    weektxt.setText(String.valueOf((allcount)/5+1)+"RD");
+                }
+                else {
+                    weektxt.setText(String.valueOf((allcount) / 5 + 1) + "TH");
                 }
                 xcount.setText(String.valueOf(allcount-countCheck));
-                weektxt.setText(String.valueOf((allcount)/5+1)+"ST");
+
             }
         }
 
