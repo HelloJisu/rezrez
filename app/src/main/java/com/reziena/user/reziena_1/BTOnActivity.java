@@ -29,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
@@ -191,7 +192,13 @@ public class BTOnActivity extends AppCompatActivity {
         mBLEScanner.startScan(Collections.singletonList(scan_filter), settings, mScanCallback);
         */
         HomeActivity.mBluetoothLeService.disconnect();
-        HomeActivity.mBluetoothLeService.connect(HomeActivity.devAdd);
+        try {
+            HomeActivity.mBluetoothLeService.connect(HomeActivity.devAdd);
+        } catch (Exception e) {
+            Log.e("Exception", "서비스를 찾을 수 없습니다.");
+            Toast toast = Toast.makeText(mcontext, "서비스를 찾을 수 없습니다 \n 기기를 켜주세요", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     private static ScanCallback mScanCallback = new ScanCallback() {

@@ -216,6 +216,7 @@ public class HomeActivity extends AppCompatActivity {
     int countCheck = -1;
     public static int deviceBattery = -1;
 
+    int find = 0;
     public static boolean isFirst = true;
 
     public static int disconnect=0;
@@ -937,6 +938,11 @@ public class HomeActivity extends AppCompatActivity {
 
         mBtAdapter.getProfileConnectionState(BluetoothAdapter.STATE_CONNECTED);
         mBLEScanner.startScan(Collections.singletonList(scan_filter), settings, mScanCallback);
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+        String getTime = sdf.format(date);
+        Log.e("BT Time", "startScan: "+getTime);
     }
 
     private ScanCallback mScanCallback = new ScanCallback() {
@@ -959,29 +965,28 @@ public class HomeActivity extends AppCompatActivity {
         private void processResult(final ScanResult result) {
 
             String devInfo = String.valueOf(result);
-            int find = 0;
-            Log.e("find", String.valueOf(result.getDevice()));
-            if (devInfo.contains(devName) && devInfo.contains(Nordic_UART_Service.toString())) {
+            Log.e("find__", String.valueOf(result.getDevice()));
+            if (devInfo.contains(devName)) {
                 find++;
+                Log.e("find__", find+" / "+String.valueOf(result.getDevice()));
                 devAdd = String.valueOf(result.getDevice());
                 device = result.getDevice();
                 if (find==1) {
+
+                    long now = System.currentTimeMillis();
+                    Date date = new Date(now);
+                    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+                    String getTime = sdf.format(date);
+                    Log.e("BT Time", "findDevice: "+getTime);
                     Log.e("find_device____", devInfo);
-                    // static context는 안됌,,,
-                    Intent gattServiceIntent;
-                    //device.createBond();
-                    /*try {
-                        //gattServiceIntent = new Intent(BluetoothLeService.mContext, BluetoothLeService.class);
-                        //Log.e("onUnbind", mBluetoothLeService.onUnbind(gattServiceIntent)+"");
-                        mBluetoothLeService.close();
-                    } catch (Exception e) {
-                        Log.e("onUnbind", "fail");
-                    }*/
-                    gattServiceIntent = new Intent(getApplicationContext(), BluetoothLeService.class);
+
+                    Intent gattServiceIntent = new Intent(getApplicationContext(), BluetoothLeService.class);
                     bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+
                     try {
                         mBLEScanner.stopScan(mScanCallback);
                         Log.e("stopScan", "stopped");
+                        return;
                     } catch (Exception e) {
                         Log.e("stopScan", "error"+e.getMessage());
                     }
@@ -990,6 +995,28 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), BTOnActivity.class);
                 startActivity(intent);
             }
+        }
+    };
+
+    private ScanCallback mStopCallback = new ScanCallback() {
+
+        @Override
+        public void onScanResult(int callbackType, ScanResult result) {
+            processResult(result);
+        }
+
+        @Override
+        public void onBatchScanResults(List<ScanResult> results) {
+            for (ScanResult result : results) {
+                processResult(result);
+            }
+        }
+
+        @Override
+        public void onScanFailed(int errorCode) {}
+
+        private void processResult(final ScanResult result) {
+            Log.e("Stop Scan", result+"");
         }
     };
 
@@ -1024,6 +1051,11 @@ public class HomeActivity extends AppCompatActivity {
 
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder service) {
+            long now = System.currentTimeMillis();
+            Date date = new Date(now);
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+            String getTime = sdf.format(date);
+            Log.e("BT Time", "serviceConnected: "+getTime);
             Log.e("mScanCallback", "onServiceConnected / init");
             mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
             if (!mBluetoothLeService.initialize())
@@ -1879,13 +1911,13 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 percent.setText(String.valueOf(percentint)+" %");
 
-                Log.e("allcount",String.valueOf(allcount));
+                //Log.e("allcount",String.valueOf(allcount));
 
 
 
                 if(count!=0){
                     int tenRemainder = ((allcount)+1/5+1) % 10;
-                    Log.e("ㅇㅇ",String.valueOf(tenRemainder));
+                    //Log.e("ㅇㅇ",String.valueOf(tenRemainder));
                     if(String.valueOf(tenRemainder).equals("1")){
                         weektxt.setText(String.valueOf((allcount)/5+1)+"ST");
                     }
@@ -1902,7 +1934,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 String st2;
                 int tenRemainder = ((allcount)/5+1) % 10;
-                Log.e("ㅇㅇ",String.valueOf(tenRemainder));
+                //Log.e("ㅇㅇ",String.valueOf(tenRemainder));
                 if(String.valueOf(tenRemainder).equals("1")){
                     weektxt.setText(String.valueOf((allcount)/5+1)+"ST");
                 }
@@ -3072,6 +3104,16 @@ public class HomeActivity extends AppCompatActivity {
 
                 charas = null;
                 for (BluetoothGattService gattService : gattServices) {
+                    gattCharacteristics = gattService.getCharacteristics();
+
+                    charas = new ArrayList<>();
+
+                    // Loops through available Characteristics.
+                    for (BluetoothGattCharacteristic gattCharacteristic : gattCharacteristics) {
+                        charas.add(gattCharacteristic);
+                    }
+                    if (isFirst)
+                        mGattCharacteristics.add(charas);
                 }
 
                 List<BluetoothGattService> services = mBluetoothGatt.getServices();
