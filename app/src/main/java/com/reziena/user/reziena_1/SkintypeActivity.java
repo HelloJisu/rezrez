@@ -105,34 +105,6 @@ public class SkintypeActivity extends AppCompatActivity {
 
     }
 
-    private void setResult_detail() {
-        skin_type = "";
-        if (mois >50) skin_type+="M "; else skin_type+="m ";
-        if (oil >50) skin_type+="O "; else skin_type+="o ";
-        if (resis >50) skin_type+="R "; else skin_type+="r ";
-        if (elas >50) skin_type+="E "; else skin_type+="e ";
-        if (anti >50) skin_type+="A"; else skin_type+="a";
-
-        mois_c.setValue(mois);
-        oiㅣ_c.setValue(oil);
-        res_c.setValue(resis);
-        elas_c.setValue(elas);
-        anti_c.setValue(anti);
-
-        mois_c2.setValue(50);
-        oiㅣ_c2.setValue(50);
-        res_c2.setValue(50);
-        elas_c2.setValue(50);
-        anti_c2.setValue(50);
-
-        skintypetxt.setText(skin_type);
-
-        setDataSkin();
-
-        setData task = new setData();
-        task.execute("http://"+HomeActivity.IP_Address+"/saveSkintype.php", "");
-    }
-
     private void setDataSkin() {
         SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
         Date currentTime = new Date();
@@ -498,6 +470,7 @@ public class SkintypeActivity extends AppCompatActivity {
         databaseReference.child("result").child("skintype").setValue(skin_type);
     }
 
+    double mois2=0.00,oil2=0.00,resis2=0.00,elas2=0.00,anti2=0.00;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -508,6 +481,13 @@ public class SkintypeActivity extends AppCompatActivity {
         for(int i=0; i<16; i++) {
             list.add(0);
         }
+
+        Intent subintent = getIntent();
+        mois2 = subintent.getExtras().getDouble("a");
+        oil2 = subintent.getExtras().getDouble("b");
+        resis2 = subintent.getExtras().getDouble("c");
+        elas2 = subintent.getExtras().getDouble("d");
+        anti2 = subintent.getExtras().getDouble("e");
 
         // popupt창 사이즈 지정
         WindowManager.LayoutParams lpWindow = new WindowManager.LayoutParams();
@@ -579,6 +559,34 @@ public class SkintypeActivity extends AppCompatActivity {
             return false;
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+    private void setResult_detail() {
+        skin_type = "";
+        if (mois >50) skin_type+="M "; else skin_type+="m ";
+        if (oil >50) skin_type+="O "; else skin_type+="o ";
+        if (resis >50) skin_type+="R "; else skin_type+="r ";
+        if (elas >50) skin_type+="E "; else skin_type+="e ";
+        if (anti >50) skin_type+="A"; else skin_type+="a";
+
+        mois_c.setValue(mois);
+        oiㅣ_c.setValue(oil);
+        res_c.setValue(resis);
+        elas_c.setValue(elas);
+        anti_c.setValue(anti);
+
+        mois_c2.setValue(Math.round(mois2));
+        oiㅣ_c2.setValue(Math.round(oil2));
+        res_c2.setValue(Math.round(resis2));
+        elas_c2.setValue(Math.round(elas2));
+        anti_c2.setValue(Math.round(anti2));
+
+        skintypetxt.setText(skin_type);
+
+        setDataSkin();
+
+        setData task = new setData();
+        task.execute("http://"+HomeActivity.IP_Address+"/saveSkintype.php", "");
     }
 
     @Override

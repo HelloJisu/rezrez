@@ -171,7 +171,6 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
     private DatabaseReference wrinklemain_txt;
-
     public static Activity homeactivity;
     String wrinkle_string;
     RelativeLayout design_bottom_sheet,moisture,wrinkles,close;
@@ -223,6 +222,441 @@ public class HomeActivity extends AppCompatActivity {
 
     public static final String CONNECTION_CONFIRM_CLIENT_URL = "http://clients3.google.com/generate_204";
     private static boolean iConnected;
+
+    private void checkPermission() {
+        int permissionLOCATION = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if (permissionLOCATION == PackageManager.PERMISSION_GRANTED) {
+            discoveryStart();
+        }
+        else
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_BLUETOOTH);
+    }
+
+    public static void setNotification() {
+        Log.e("setNotification", "init");
+        //sendMessage = "0x61";
+
+        if (mGattCharacteristics != null) {
+            Log.e("mGattCharacteristics", "size"+String.valueOf(mGattCharacteristics.size()));
+            if (isConn) {
+                Log.e("isConn", "true");
+                int k = 0;
+                for (int i = 0; i < mGattCharacteristics.size() - 1; i++) {
+                    switch (i) {
+                        case 0: k = 4; break; case 1: k = 0; break; case 2: k = 2; break;
+                        case 3: k = 1; break; case 4: k = 3; break; case 5: k = 1; break;
+                    }
+                    for (int j = 0; j < k; j++) {
+                        if (mGattCharacteristics.get(i).get(j).getUuid().equals(Nordic_UART_RX)) {
+                            characteristic = mGattCharacteristics.get(i).get(j);
+                        }
+                    }
+                }
+                Log.e("characteristic", characteristic.getUuid().toString());
+                final int charaProp = characteristic.getProperties();
+                if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
+                    if (mNotifyCharacteristic != null) {
+                        BluetoothLeService.setCharacteristicNotification(mNotifyCharacteristic, true);
+                        mNotifyCharacteristic = null;
+                    }
+                    Log.e("readCharacteristic", "호출");
+                    mBluetoothLeService.readCharacteristic(characteristic);
+                }
+                if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
+
+                    Log.e("enableTXNotification", "호출");
+                    mNotifyCharacteristic = characteristic;
+                    mBluetoothLeService.enableTXNotification();
+                }
+            }
+        }
+    }
+
+    public static void send(String m) {
+        if (characteristic!=null) {
+            if (m.contains("/")) {
+                where = m.split("/")[0];
+                m = m.split("/")[1];
+            }
+
+            sendMessage = m;
+
+            switch (sendMessage) {
+                case "0x22": data=0x22; break;
+                case "0x31": data=0x31; break;
+                case "0x34": data=0x34; break;
+                case "0x61": data=0x61; break;
+            }
+
+            Toast.makeText(mcontext, "SEND: "+sendMessage, Toast.LENGTH_SHORT).show();
+            Log.e("send", sendMessage+"-----------------------------------------------");
+
+            final int charaProp = characteristic.getProperties();
+            if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
+                mNotifyCharacteristic = characteristic;
+
+                mBluetoothLeService.writeRXCharacteristic(data);
+                mBluetoothLeService.setCharacteristicNotification(mNotifyCharacteristic, true);
+            }
+        }
+    }
+
+    private void checkBT() {
+        // 장치가 블루투스 지원하지 않는 경우
+        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+            Log.e("STATUS", "BLE 지원 불가능");
+            android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+            builder.setTitle("BLE 지원 안됨");
+            builder.setMessage("블루투스가 지원이 안됩니다,");
+            builder.setNegativeButton("취소",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            android.support.v7.app.AlertDialog alert = builder.create();
+            alert.show();
+            finish();
+        }
+        // 블루투스가 꺼져있으면 사용자에게 블루투스 활성화를 요청한다
+        if (!mBtAdapter.isEnabled()) {
+            Log.e("STATUS", "BLE 비활성상태");
+            Toast.makeText(getApplicationContext(), "BLE 비활성상태", Toast.LENGTH_SHORT).show();
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);  // 뒤에것은 어떤 요청인지 알기 위해
+        } else {
+            checkPermission();
+        }
+    }
+
+    private void discoveryStart() {
+        Log.e("discoveryStart()", "init");
+
+        List<ScanFilter> filters= new ArrayList<>();
+        ScanFilter scan_filter= new ScanFilter.Builder()
+                .setServiceUuid( new ParcelUuid(Nordic_UART_Service) )
+                //.setDeviceName("Young&be")
+                .build();
+        filters.add( scan_filter );
+
+        ScanSettings settings= new ScanSettings.Builder()
+                .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER )
+                .build();
+
+        mBLEScanner = mBtAdapter.getBluetoothLeScanner();
+
+        mBtAdapter.getProfileConnectionState(BluetoothAdapter.STATE_CONNECTED);
+        mBLEScanner.startScan(Collections.singletonList(scan_filter), settings, mScanCallback);
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+        String getTime = sdf.format(date);
+        Log.e("BT Time", "startScan: "+getTime);
+    }
+
+    private ScanCallback mScanCallback = new ScanCallback() {
+
+        @Override
+        public void onScanResult(int callbackType, ScanResult result) {
+            processResult(result);
+        }
+
+        @Override
+        public void onBatchScanResults(List<ScanResult> results) {
+            for (ScanResult result : results) {
+                processResult(result);
+            }
+        }
+
+        @Override
+        public void onScanFailed(int errorCode) {}
+
+        private void processResult(final ScanResult result) {
+
+            String devInfo = String.valueOf(result);
+            Log.e("find__", String.valueOf(result.getDevice()));
+            if (devInfo.contains(devName)) {
+                find++;
+                Log.e("find__", find+" / "+String.valueOf(result.getDevice()));
+                devAdd = String.valueOf(result.getDevice());
+                device = result.getDevice();
+                if (find==1) {
+
+                    long now = System.currentTimeMillis();
+                    Date date = new Date(now);
+                    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+                    String getTime = sdf.format(date);
+                    Log.e("BT Time", "findDevice: "+getTime);
+                    Log.e("find_device____", devInfo);
+
+                    Intent gattServiceIntent = new Intent(getApplicationContext(), BluetoothLeService.class);
+                    bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+
+                    try {
+                        mBLEScanner.stopScan(mScanCallback);
+                        Log.e("stopScan", "stopped");
+                        return;
+                    } catch (Exception e) {
+                        Log.e("stopScan", "error"+e.getMessage());
+                    }
+                }
+            } else {
+                Intent intent = new Intent(getApplicationContext(), BTOnActivity.class);
+                startActivity(intent);
+            }
+        }
+    };
+
+    private ScanCallback mStopCallback = new ScanCallback() {
+
+        @Override
+        public void onScanResult(int callbackType, ScanResult result) {
+            processResult(result);
+        }
+
+        @Override
+        public void onBatchScanResults(List<ScanResult> results) {
+            for (ScanResult result : results) {
+                processResult(result);
+            }
+        }
+
+        @Override
+        public void onScanFailed(int errorCode) {}
+
+        private void processResult(final ScanResult result) {
+            Log.e("Stop Scan", result+"");
+        }
+    };
+
+    private void bond() {
+        Log.e("init: ", "bonding!!;");
+        /** Filtering Broadcast Receiver */
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
+        /** Start Broadcast Receiver */
+        this.registerReceiver(mBroadcastReceiver, filter);
+    }
+
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String action = intent.getAction();
+            Log.e("BT", "onReceive: ACTION____________come in mBroadcastReceiver2");
+            Log.e("action", action);
+
+            device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+            if (device.getBondState()==BluetoothDevice.BOND_NONE) {
+                Log.e("BT", "BOND_NONE");
+            } else if (device.getBondState()==BluetoothDevice.BOND_BONDED) {
+                Log.e("bondedState?!", "BOND_BONDED");
+                //finish();
+            }
+        }
+    };
+
+    private final ServiceConnection mServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder service) {
+            long now = System.currentTimeMillis();
+            Date date = new Date(now);
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+            String getTime = sdf.format(date);
+            Log.e("BT Time", "serviceConnected: "+getTime);
+            Log.e("mScanCallback", "onServiceConnected / init");
+            mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
+            if (!mBluetoothLeService.initialize())
+                finish();
+            mBluetoothLeService.connect(devAdd);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            Log.e("mScanCallback", "onServiceDisconnected / init");
+            mBluetoothLeService = null;
+            disconnectGattServer();
+            discoveryStart();
+        }
+
+        public void onBindingDied(ComponentName name) {
+            Log.e("onBindingDied", "init");
+        }
+
+        public void onNullBinding(ComponentName name) {
+            Log.e("onNullBinding", "init");
+        }
+    };
+
+    public static void disconnectGattServer() {
+        Log.e("disconnectGattServer", "init / HOme");
+        isConn = false;
+        if( mBluetoothGatt != null ) {
+            //gattCharacteristics = null;
+            //characteristics = null;
+            mBluetoothGatt.disconnect();
+            mBluetoothGatt.close();
+            //mGattCharacteristics = new ArrayList<>();
+            deviceBattery = -1;
+
+            disconnect++;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_BLUETOOTH:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.e("PermissionResult", "permission granted");
+                    discoveryStart();
+                } else {//거부했을 경우
+                    Toast toast = Toast.makeText(this, "기능 사용을 위한 권한 동의가 필요합니다.", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                break;
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_ENABLE_BT:
+                if (resultCode == RESULT_OK) {
+                    Log.e("BT 활성화 ", "OK");
+                    checkPermission();
+                } else if (resultCode==RESULT_CANCELED) {
+                    Log.e("BT 활성화 ", "NO");
+                } else Log.e("BT 활성화 ", resultCode+"");
+                break;
+        }
+    }
+
+    @Override
+    public void onStart() { super.onStart(); }
+
+    // calling Moisture
+    class GetData1 extends AsyncTask<String, Void, String> {
+        String level="";
+        int now_m=-8;
+
+        @Override
+        protected void onPostExecute(String getResult) {
+            super.onPostExecute(getResult);
+
+            if (getResult==null) {
+                //Log.e("getdata-moisture", "getResult==null");
+                level = "-";
+            } else {
+                //Log.e("getdata-moisture", "getResult=="+getResult);
+                if (getResult.contains("No_results")||getResult.contains("nul")) {
+                    level = "-";
+                } else {
+                    showResult(getResult);
+
+                    // 가져온 현재 모이스처 저장하기
+                    SharedPreferences now_moisturse = getSharedPreferences("now_m", MODE_PRIVATE);
+                    SharedPreferences.Editor editor1 = now_moisturse.edit();
+                    editor1.putInt("now_m", now_m);
+                    editor1.commit();
+                    //Log.e("now_m ", level+"퍼센트");
+                }
+            }
+            moisture_score_main.setText(DB_moisture);
+
+            //Log.e("moisture",DB_moisture);
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String serverURL = params[0];
+
+            SharedPreferences sp_userID = getSharedPreferences("userID", MODE_PRIVATE);
+            String userID = sp_userID.getString("userID", "");
+            String postParameters = "id="+userID;
+            //Log.e("moisture-userID", userID);
+
+            try {
+                URL url = new URL(serverURL);
+
+                HttpURLConnection httpURLConnection= (HttpURLConnection)url.openConnection();
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                //Log.e("moisture-postParameters", postParameters);
+                outputStream.flush();
+                outputStream.close();
+
+                InputStream inputStream;
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                    //Log.e("moisture-response", "code - HTTP_OK - " + responseStatusCode);
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                    //Log.e("moisture-response", "code - HTTP_NOT_OK - " + responseStatusCode);
+                }
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+                bufferedReader.close();
+
+                return sb.toString().trim();
+
+            } catch (Exception e) {
+                //Log.e("moisture-error-stream", e.getMessage());
+            }
+            return null;
+        }
+
+        private void showResult(String result){
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                JSONArray jsonArray = jsonObject.getJSONArray("getData");
+
+                for(int i=0;i<jsonArray.length();i++){
+
+                    JSONObject item = jsonArray.getJSONObject(i);
+                    now_m = item.getInt("level");
+                    max_mois = item.getInt("id");
+                    max_mois -= 1;
+                    //Log.e("moisture-level ", DB_moisture+"!!!!!!!!!!");
+                }
+                //Log.e("moisture::::", String.valueOf(moisture_per));
+
+                if (now_m!=-8) {
+                    if (now_m<=18) level = "C";
+                    if (now_m>=20 && now_m<=40) level="C+";
+                    if (now_m>=42 && now_m<=48) level="B";
+                    if (now_m>=50 && now_m<=57) level="B+";
+                    if (now_m>=60 && now_m<=68) level="A";
+                    if (now_m>=71 && now_m<=99) level="A+";
+
+                }
+                moisture_score_main.setText(level);
+
+            } catch (JSONException e) {
+                //Log.e("moisture-JSON", "showResult : ", e);
+            }
+
+        }
+    }
 
     @SuppressLint({"WrongViewCast", "ClickableViewAccessibility"})
     @Override
@@ -676,6 +1110,11 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.skintype:
                         skintype.setClickable(false);
                         intent = new Intent(getApplicationContext(), SkintypeActivity.class);
+                        intent.putExtra("a",mois);
+                        intent.putExtra("b",oil);
+                        intent.putExtra("c",resis);
+                        intent.putExtra("d",elas);
+                        intent.putExtra("e",anti);
                         startActivity(intent);
                         break;
                     case R.id.treatclose:
@@ -810,441 +1249,6 @@ public class HomeActivity extends AppCompatActivity {
         userName = sp_userName.getString("userName", "");
         home_setName.setText("HELLO, "+ userName+"!");
         //Log.e("SharedPreferences", userName);
-    }
-
-    private void checkPermission() {
-        int permissionLOCATION = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
-
-        if (permissionLOCATION == PackageManager.PERMISSION_GRANTED) {
-            discoveryStart();
-        }
-        else
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_BLUETOOTH);
-    }
-
-    public static void setNotification() {
-        Log.e("setNotification", "init");
-        //sendMessage = "0x61";
-
-        if (mGattCharacteristics != null) {
-            Log.e("mGattCharacteristics", "size"+String.valueOf(mGattCharacteristics.size()));
-            if (isConn) {
-                Log.e("isConn", "true");
-                int k = 0;
-                for (int i = 0; i < mGattCharacteristics.size() - 1; i++) {
-                    switch (i) {
-                        case 0: k = 4; break; case 1: k = 0; break; case 2: k = 2; break;
-                        case 3: k = 1; break; case 4: k = 3; break; case 5: k = 1; break;
-                    }
-                    for (int j = 0; j < k; j++) {
-                        if (mGattCharacteristics.get(i).get(j).getUuid().equals(Nordic_UART_RX)) {
-                            characteristic = mGattCharacteristics.get(i).get(j);
-                        }
-                    }
-                }
-                Log.e("characteristic", characteristic.getUuid().toString());
-                final int charaProp = characteristic.getProperties();
-                if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
-                    if (mNotifyCharacteristic != null) {
-                        BluetoothLeService.setCharacteristicNotification(mNotifyCharacteristic, true);
-                        mNotifyCharacteristic = null;
-                    }
-                    Log.e("readCharacteristic", "호출");
-                    mBluetoothLeService.readCharacteristic(characteristic);
-                }
-                if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
-
-                    Log.e("enableTXNotification", "호출");
-                    mNotifyCharacteristic = characteristic;
-                    mBluetoothLeService.enableTXNotification();
-                }
-            }
-        }
-    }
-
-    public static void send(String m) {
-        if (characteristic!=null) {
-            if (m.contains("/")) {
-                where = m.split("/")[0];
-                m = m.split("/")[1];
-            }
-
-            sendMessage = m;
-
-            switch (sendMessage) {
-                case "0x22": data=0x22; break;
-                case "0x31": data=0x31; break;
-                case "0x34": data=0x34; break;
-                case "0x61": data=0x61; break;
-            }
-
-            Toast.makeText(mcontext, "SEND: "+sendMessage, Toast.LENGTH_SHORT).show();
-            Log.e("send", sendMessage+"-----------------------------------------------");
-
-            final int charaProp = characteristic.getProperties();
-            if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
-                mNotifyCharacteristic = characteristic;
-
-                mBluetoothLeService.writeRXCharacteristic(data);
-                mBluetoothLeService.setCharacteristicNotification(mNotifyCharacteristic, true);
-            }
-        }
-    }
-
-    private void checkBT() {
-        // 장치가 블루투스 지원하지 않는 경우
-        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-            Log.e("STATUS", "BLE 지원 불가능");
-            android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
-            builder.setTitle("BLE 지원 안됨");
-            builder.setMessage("블루투스가 지원이 안됩니다,");
-            builder.setNegativeButton("취소",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-            android.support.v7.app.AlertDialog alert = builder.create();
-            alert.show();
-            finish();
-        }
-        // 블루투스가 꺼져있으면 사용자에게 블루투스 활성화를 요청한다
-        if (!mBtAdapter.isEnabled()) {
-            Log.e("STATUS", "BLE 비활성상태");
-            Toast.makeText(getApplicationContext(), "BLE 비활성상태", Toast.LENGTH_SHORT).show();
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);  // 뒤에것은 어떤 요청인지 알기 위해
-        } else {
-            checkPermission();
-        }
-    }
-
-    private void discoveryStart() {
-        Log.e("discoveryStart()", "init");
-
-        List<ScanFilter> filters= new ArrayList<>();
-        ScanFilter scan_filter= new ScanFilter.Builder()
-                .setServiceUuid( new ParcelUuid(Nordic_UART_Service) )
-                //.setDeviceName("Young&be")
-                .build();
-        filters.add( scan_filter );
-
-        ScanSettings settings= new ScanSettings.Builder()
-                .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER )
-                .build();
-
-        mBLEScanner = mBtAdapter.getBluetoothLeScanner();
-
-        mBtAdapter.getProfileConnectionState(BluetoothAdapter.STATE_CONNECTED);
-        mBLEScanner.startScan(Collections.singletonList(scan_filter), settings, mScanCallback);
-        long now = System.currentTimeMillis();
-        Date date = new Date(now);
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-        String getTime = sdf.format(date);
-        Log.e("BT Time", "startScan: "+getTime);
-    }
-
-    private ScanCallback mScanCallback = new ScanCallback() {
-
-        @Override
-        public void onScanResult(int callbackType, ScanResult result) {
-            processResult(result);
-        }
-
-        @Override
-        public void onBatchScanResults(List<ScanResult> results) {
-            for (ScanResult result : results) {
-                processResult(result);
-            }
-        }
-
-        @Override
-        public void onScanFailed(int errorCode) {}
-
-        private void processResult(final ScanResult result) {
-
-            String devInfo = String.valueOf(result);
-            Log.e("find__", String.valueOf(result.getDevice()));
-            if (devInfo.contains(devName)) {
-                find++;
-                Log.e("find__", find+" / "+String.valueOf(result.getDevice()));
-                devAdd = String.valueOf(result.getDevice());
-                device = result.getDevice();
-                if (find==1) {
-
-                    long now = System.currentTimeMillis();
-                    Date date = new Date(now);
-                    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-                    String getTime = sdf.format(date);
-                    Log.e("BT Time", "findDevice: "+getTime);
-                    Log.e("find_device____", devInfo);
-
-                    Intent gattServiceIntent = new Intent(getApplicationContext(), BluetoothLeService.class);
-                    bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
-
-                    try {
-                        mBLEScanner.stopScan(mScanCallback);
-                        Log.e("stopScan", "stopped");
-                        return;
-                    } catch (Exception e) {
-                        Log.e("stopScan", "error"+e.getMessage());
-                    }
-                }
-            } else {
-                Intent intent = new Intent(getApplicationContext(), BTOnActivity.class);
-                startActivity(intent);
-            }
-        }
-    };
-
-    private ScanCallback mStopCallback = new ScanCallback() {
-
-        @Override
-        public void onScanResult(int callbackType, ScanResult result) {
-            processResult(result);
-        }
-
-        @Override
-        public void onBatchScanResults(List<ScanResult> results) {
-            for (ScanResult result : results) {
-                processResult(result);
-            }
-        }
-
-        @Override
-        public void onScanFailed(int errorCode) {}
-
-        private void processResult(final ScanResult result) {
-            Log.e("Stop Scan", result+"");
-        }
-    };
-
-    private void bond() {
-        Log.e("init: ", "bonding!!;");
-        /** Filtering Broadcast Receiver */
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
-        /** Start Broadcast Receiver */
-        this.registerReceiver(mBroadcastReceiver, filter);
-    }
-
-    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            String action = intent.getAction();
-            Log.e("BT", "onReceive: ACTION____________come in mBroadcastReceiver2");
-            Log.e("action", action);
-
-            device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-            if (device.getBondState()==BluetoothDevice.BOND_NONE) {
-                Log.e("BT", "BOND_NONE");
-            } else if (device.getBondState()==BluetoothDevice.BOND_BONDED) {
-                Log.e("bondedState?!", "BOND_BONDED");
-                //finish();
-            }
-        }
-    };
-
-    private final ServiceConnection mServiceConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder service) {
-            long now = System.currentTimeMillis();
-            Date date = new Date(now);
-            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-            String getTime = sdf.format(date);
-            Log.e("BT Time", "serviceConnected: "+getTime);
-            Log.e("mScanCallback", "onServiceConnected / init");
-            mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
-            if (!mBluetoothLeService.initialize())
-                finish();
-            mBluetoothLeService.connect(devAdd);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-            Log.e("mScanCallback", "onServiceDisconnected / init");
-            mBluetoothLeService = null;
-            disconnectGattServer();
-            discoveryStart();
-        }
-
-        public void onBindingDied(ComponentName name) {
-            Log.e("onBindingDied", "init");
-        }
-
-        public void onNullBinding(ComponentName name) {
-            Log.e("onNullBinding", "init");
-        }
-    };
-
-    public static void disconnectGattServer() {
-        Log.e("disconnectGattServer", "init / HOme");
-        isConn = false;
-        if( mBluetoothGatt != null ) {
-            //gattCharacteristics = null;
-            //characteristics = null;
-            mBluetoothGatt.disconnect();
-            mBluetoothGatt.close();
-            //mGattCharacteristics = new ArrayList<>();
-            deviceBattery = -1;
-
-            disconnect++;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_BLUETOOTH:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.e("PermissionResult", "permission granted");
-                    discoveryStart();
-                } else {//거부했을 경우
-                    Toast toast = Toast.makeText(this, "기능 사용을 위한 권한 동의가 필요합니다.", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-                break;
-        }
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case REQUEST_ENABLE_BT:
-                if (resultCode == RESULT_OK) {
-                    Log.e("BT 활성화 ", "OK");
-                    checkPermission();
-                } else if (resultCode==RESULT_CANCELED) {
-                    Log.e("BT 활성화 ", "NO");
-                } else Log.e("BT 활성화 ", resultCode+"");
-                break;
-        }
-    }
-
-    @Override
-    public void onStart() { super.onStart(); }
-
-    // calling Moisture
-    class GetData1 extends AsyncTask<String, Void, String> {
-        String level="";
-        int now_m=-8;
-
-        @Override
-        protected void onPostExecute(String getResult) {
-            super.onPostExecute(getResult);
-
-            if (getResult==null) {
-                //Log.e("getdata-moisture", "getResult==null");
-                level = "-";
-            } else {
-                //Log.e("getdata-moisture", "getResult=="+getResult);
-                if (getResult.contains("No_results")||getResult.contains("nul")) {
-                    level = "-";
-                } else {
-                    showResult(getResult);
-
-                    // 가져온 현재 모이스처 저장하기
-                    SharedPreferences now_moisturse = getSharedPreferences("now_m", MODE_PRIVATE);
-                    SharedPreferences.Editor editor1 = now_moisturse.edit();
-                    editor1.putInt("now_m", now_m);
-                    editor1.commit();
-                    //Log.e("now_m ", level+"퍼센트");
-                }
-            }
-            moisture_score_main.setText(DB_moisture);
-
-            //Log.e("moisture",DB_moisture);
-
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String serverURL = params[0];
-
-            SharedPreferences sp_userID = getSharedPreferences("userID", MODE_PRIVATE);
-            String userID = sp_userID.getString("userID", "");
-            String postParameters = "id="+userID;
-            //Log.e("moisture-userID", userID);
-
-            try {
-                URL url = new URL(serverURL);
-
-                HttpURLConnection httpURLConnection= (HttpURLConnection)url.openConnection();
-                httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);
-
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.connect();
-
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
-                //Log.e("moisture-postParameters", postParameters);
-                outputStream.flush();
-                outputStream.close();
-
-                InputStream inputStream;
-                int responseStatusCode = httpURLConnection.getResponseCode();
-                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
-                    inputStream = httpURLConnection.getInputStream();
-                    //Log.e("moisture-response", "code - HTTP_OK - " + responseStatusCode);
-                }
-                else{
-                    inputStream = httpURLConnection.getErrorStream();
-                    //Log.e("moisture-response", "code - HTTP_NOT_OK - " + responseStatusCode);
-                }
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                StringBuilder sb = new StringBuilder();
-                String line;
-
-                while((line = bufferedReader.readLine()) != null){
-                    sb.append(line);
-                }
-                bufferedReader.close();
-
-                return sb.toString().trim();
-
-            } catch (Exception e) {
-                //Log.e("moisture-error-stream", e.getMessage());
-            }
-            return null;
-        }
-
-        private void showResult(String result){
-            try {
-                JSONObject jsonObject = new JSONObject(result);
-                JSONArray jsonArray = jsonObject.getJSONArray("getData");
-
-                for(int i=0;i<jsonArray.length();i++){
-
-                    JSONObject item = jsonArray.getJSONObject(i);
-                    now_m = item.getInt("level");
-                    max_mois = item.getInt("id");
-                    max_mois -= 1;
-                    //Log.e("moisture-level ", DB_moisture+"!!!!!!!!!!");
-                }
-                //Log.e("moisture::::", String.valueOf(moisture_per));
-
-                if (now_m!=-8) {
-                    if (now_m<=18) level = "C";
-                    if (now_m>=20 && now_m<=40) level="C+";
-                    if (now_m>=42 && now_m<=48) level="B";
-                    if (now_m>=50 && now_m<=57) level="B+";
-                    if (now_m>=60 && now_m<=68) level="A";
-                    if (now_m>=71 && now_m<=99) level="A+";
-
-                }
-                moisture_score_main.setText(level);
-
-            } catch (JSONException e) {
-                //Log.e("moisture-JSON", "showResult : ", e);
-            }
-
-        }
     }
 
     // calling Wrinkle
@@ -1493,10 +1497,10 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    Double mois=0.00, oil=0.00, resis=0.00, elas=0.00, anti=0.00;
     // calling skintype AVG
-    class GetDataAVG extends AsyncTask<String, Void, String> {
 
-        Double mois=0.00, oil=0.00, resis=0.00, elas=0.00, anti=0.00;
+    class GetDataAVG extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPostExecute(String getResult) {
