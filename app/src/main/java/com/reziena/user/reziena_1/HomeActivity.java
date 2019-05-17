@@ -218,6 +218,8 @@ public class HomeActivity extends AppCompatActivity {
     int find = 0;
     public static boolean isFirst = true;
 
+    public static boolean isBound = false;
+
     public static int disconnect=0;
 
     public static final String CONNECTION_CONFIRM_CLIENT_URL = "http://clients3.google.com/generate_204";
@@ -392,7 +394,7 @@ public class HomeActivity extends AppCompatActivity {
                     Log.e("find_device____", devInfo);
 
                     Intent gattServiceIntent = new Intent(getApplicationContext(), BluetoothLeService.class);
-                    bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+                    isBound = bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
 
                     try {
                         mBLEScanner.stopScan(mScanCallback);
@@ -2380,6 +2382,7 @@ public class HomeActivity extends AppCompatActivity {
                 else iConnected = false;
             } catch (Exception e) {
                 e.printStackTrace();
+                Log.e("connect Error", e.getMessage());
                 iConnected = false;
             }
             if (conn != null) conn.disconnect();

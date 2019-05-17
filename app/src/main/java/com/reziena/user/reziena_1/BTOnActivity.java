@@ -16,6 +16,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.ParcelUuid;
@@ -61,6 +62,8 @@ public class BTOnActivity extends AppCompatActivity {
     ImageView image;
     static Context mcontext;
     static BluetoothGatt mBluetoothGatt;
+
+    static boolean found = false;
 
     static private BluetoothLeScanner mBLEScanner;
 
@@ -177,9 +180,9 @@ public class BTOnActivity extends AppCompatActivity {
 
     public static void discoveryStart() {
 
-        /*List<ScanFilter> filters= new ArrayList<>();
+        List<ScanFilter> filters= new ArrayList<>();
         ScanFilter scan_filter= new ScanFilter.Builder()
-                //.setServiceUuid( new ParcelUuid( MY_UUID ) )
+                .setServiceUuid( new ParcelUuid( HomeActivity.Nordic_UART_Service ) )
                 //.setDeviceName("Young&be")
                 .build();
         filters.add( scan_filter );
@@ -190,7 +193,7 @@ public class BTOnActivity extends AppCompatActivity {
 
         mBLEScanner = mBtAdapter.getBluetoothLeScanner();
         mBLEScanner.startScan(Collections.singletonList(scan_filter), settings, mScanCallback);
-        */
+
         HomeActivity.mBluetoothLeService.disconnect();
         try {
             HomeActivity.mBluetoothLeService.connect(HomeActivity.devAdd);
@@ -224,19 +227,22 @@ public class BTOnActivity extends AppCompatActivity {
             int find = 0;
             Log.e("find", String.valueOf(result.getDevice()));
             if (devInfo.contains(HomeActivity.devName)) {
+                found = true;
                 find++;
+
                 HomeActivity.devAdd = String.valueOf(result.getDevice());
                 device = result.getDevice();
                 if (find==1) {
                     Log.e("find_device____", devInfo);
-                    //Intent gattServiceIntent = new Intent(mcontext, BluetoothLeService.class);
-                    //bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
                     try {
                         mBLEScanner.stopScan(mScanCallback);
                         Log.e("stopScan", "stopped");
                     } catch (Exception e) {
                         Log.e("stopScan", "error"+e.getMessage());
                     }
+                    if (!HomeActivity.mBluetoothLeService.initialize())
+                        Log.e("mBluetoothLeService", "not initialize");
+                    HomeActivity.mBluetoothLeService.connect(HomeActivity.devAdd);
                 }
             }
         }
