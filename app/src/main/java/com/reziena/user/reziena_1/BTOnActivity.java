@@ -62,6 +62,7 @@ public class BTOnActivity extends AppCompatActivity {
     ImageView image;
     static Context mcontext;
     static BluetoothGatt mBluetoothGatt;
+    public static boolean BTOn = false;
 
     static boolean found = false;
 
@@ -92,6 +93,7 @@ public class BTOnActivity extends AppCompatActivity {
 
         HomeActivity.imageView2.setImageResource(R.drawable.nondeviceicon);
         Log.e("지금은 ", "BTOnActivity");
+        BTOn = true;
 
         mHandler = new Handler();
 
@@ -119,8 +121,6 @@ public class BTOnActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.no_retry: case R.id.imageButton:
-                        intent = new Intent(getApplicationContext(), HomeActivity.class);
-                        startActivity(intent);
                         homeactivity.dashback.setImageResource(0);
                         finish();
                         break;
@@ -175,7 +175,9 @@ public class BTOnActivity extends AppCompatActivity {
         Timer timer = new Timer();
         timer.schedule(timerTask, 0, 1000);
 
-        discoveryStart();
+        Log.e("BTOnActivity", "disconnect: "+HomeActivity.disconnect);
+        Log.e("BTOnActivity", "isConnecting: "+HomeActivity.isConnecting);
+        if (HomeActivity.disconnect > 3 || !HomeActivity.isConnecting) discoveryStart();
     }
 
     public static void discoveryStart() {
@@ -242,15 +244,25 @@ public class BTOnActivity extends AppCompatActivity {
                     }
                     if (!HomeActivity.mBluetoothLeService.initialize())
                         Log.e("mBluetoothLeService", "not initialize");
-                    HomeActivity.mBluetoothLeService.connect(HomeActivity.devAdd);
+                    if (!HomeActivity.isConn)
+                        HomeActivity.mBluetoothLeService.connect(HomeActivity.devAdd);
                 }
             }
         }
     };
 
+    protected void onResume() {
+        super.onResume();
+    }
+
     protected void onPause() {
         super.onPause();
-        timerTask.cancel();
+        BTOn = false;
+        try {
+            timerTask.cancel();
+        } catch (Exception e) {
+            Log.e("BTOnActivity", "Exception:: "+e.getMessage());
+        }
         finish();
     }
 

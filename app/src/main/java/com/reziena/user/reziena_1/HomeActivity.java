@@ -117,6 +117,8 @@ public class HomeActivity extends AppCompatActivity {
 
     public static String sendMessage = null;
 
+    public static boolean isConnecting = false;
+
     public static int sendCount = 1;
 
     LoginActivity loginActivity = (LoginActivity) LoginActivity.loginactivity;
@@ -351,6 +353,7 @@ public class HomeActivity extends AppCompatActivity {
 
         mBtAdapter.getProfileConnectionState(BluetoothAdapter.STATE_CONNECTED);
         mBLEScanner.startScan(Collections.singletonList(scan_filter), settings, mScanCallback);
+        isConnecting = true;
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
@@ -394,7 +397,27 @@ public class HomeActivity extends AppCompatActivity {
                     Log.e("find_device____", devInfo);
 
                     Intent gattServiceIntent = new Intent(getApplicationContext(), BluetoothLeService.class);
-                    isBound = bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+                    Log.e("HomeActivity", "isBound::"+isBound);
+
+                    /*if (!isBound) {
+                        try {
+                            isBound = bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+                            Log.e("isBound", isBound+"");
+                        } catch(Exception e) {
+                            Log.e("HomeActivity", "Exception:: "+e.getMessage());
+                        }
+                    } else {
+                        if (!mBluetoothLeService.initialize())
+                            finish();
+                        if (!isConn) mBluetoothLeService.connect(devAdd);
+                    }*/
+
+                    try {
+                        isBound = bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+                        Log.e("isBound", isBound+"");
+                    } catch(Exception e) {
+                        Log.e("HomeActivity", "Exception:: "+e.getMessage());
+                    }
 
                     try {
                         mBLEScanner.stopScan(mScanCallback);
@@ -410,6 +433,15 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
     };
+
+    protected void onDestroy() {
+        super.onDestroy();
+
+        disconnectGattServer();
+        Log.e("HomeActivity", "onDestroy, isBound:: "+isBound);
+        Intent intent = new Intent(getApplicationContext(), BluetoothLeService.class);
+        if (isBound) mBluetoothLeService.onUnbind(intent);
+    }
 
     private ScanCallback mStopCallback = new ScanCallback() {
 
@@ -473,7 +505,7 @@ public class HomeActivity extends AppCompatActivity {
             mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
             if (!mBluetoothLeService.initialize())
                 finish();
-            mBluetoothLeService.connect(devAdd);
+            if (!isConn) mBluetoothLeService.connect(devAdd);
         }
 
         @Override
@@ -2441,7 +2473,7 @@ public class HomeActivity extends AppCompatActivity {
             imageView2.setImageResource(R.drawable.nondeviceicon);
             isConn = false;
             if (isFirst == false) {
-                Log.e("여기서", "부름");
+                Log.e("HomeActivity", "onResume, isFirst == false + disconnectGattServer():: battery:: " +deviceBattery);
                 disconnectGattServer();
             }
         }
@@ -2758,26 +2790,32 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private static void setMoistureActivity() {
-        if (kind.equals("32")) {
-            MoistureActivity.mois_status.setText("Detect...");
-            MoistureActivity.ing = true;
-        }
-        if (kind.equals("33")) {
-            Log.e("moisture", receiveResult+"");
-            if (MoistureActivity.moisNow) {
-                MoistureActivity.moisRand = receiveResult;
-                MoistureActivity.per = String.valueOf(receiveResult);
-                Log.e("moisRand", String.valueOf(MoistureActivity.moisRand));
-            }
-            MoistureActivity.setMoisFront();
 
-            MoistureActivity.ing = false;
-        }
-        if (receiveResult==34) {
-            MoistureActivity.mois_status.setText("Fail...");
-            MoistureActivity.moisRand = 8;
-            MoistureActivity.setMoisResult();
-        }
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (kind.equals("32")) {
+                    MoistureActivity.mois_status.setText("Detect...");
+                    MoistureActivity.ing = true;
+                }
+                if (kind.equals("33")) {
+                    Log.e("moisture", receiveResult+"");
+                    if (MoistureActivity.moisNow) {
+                        MoistureActivity.moisRand = receiveResult;
+                        MoistureActivity.per = String.valueOf(receiveResult);
+                        Log.e("moisRand", String.valueOf(MoistureActivity.moisRand));
+                    }
+                    MoistureActivity.setMoisFront();
+
+                    MoistureActivity.ing = false;
+                }
+                if (receiveResult==34) {
+                    MoistureActivity.mois_status.setText("Fail...");
+                    MoistureActivity.moisRand = 8;
+                    MoistureActivity.setMoisResult();
+                }
+            }
+        });
     }
 
     private static void setTreatActivity() {

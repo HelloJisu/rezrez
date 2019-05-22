@@ -51,6 +51,8 @@ public class BluetoothActivity extends AppCompatActivity {
     ImageView image;
     int sendCount = 0;
 
+    public static boolean Bluetooth = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,9 @@ public class BluetoothActivity extends AppCompatActivity {
         bluetoothactivity=BluetoothActivity.this;
 
         Log.e("지금은 ", "BluetoothActivity");
+        Log.e("BluetoothActivity", "isConnecting: "+HomeActivity.isConnecting);
+        Bluetooth = true;
+
         // popupt창 사이즈 지정
         WindowManager.LayoutParams lpWindow = new WindowManager.LayoutParams();
         lpWindow.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
@@ -111,14 +116,20 @@ public class BluetoothActivity extends AppCompatActivity {
                             HomeActivity.imageView2.setImageResource(R.drawable.ellipsehomethera_icon);
                             deviceBattery.setText("Connected \n\n Battery : " + battery + "%");
                         }
-                    } catch (Exception e) {}
+                    } catch (Exception e) {
+                        Log.e("BluetoothActivity", "Exception1:: "+e.getMessage());
+                    }
                 });
             }
         };
 
         if (HomeActivity.isConn) {
-            HomeActivity.send("0x61"); // 0x61
-            Log.e("sending", "0x61");
+            try {
+                HomeActivity.send("0x61"); // 0x61
+                Log.e("sending", "0x61");
+            } catch (Exception e) {
+                Log.e("BluetoothActivity", "Exception2:: "+e.getMessage());
+            }
 
             /*new Handler().postDelayed(new Runnable()
             {
@@ -335,7 +346,12 @@ public class BluetoothActivity extends AppCompatActivity {
 
     protected void onPause() {
         super.onPause();
-        second.cancel();
+        Bluetooth = false;
+        try {
+            second.cancel();
+        } catch (Exception e) {
+            Log.e("BluetoothActivity", "Exception:: " + e.getMessage());
+        }
         finish();
     }
 }

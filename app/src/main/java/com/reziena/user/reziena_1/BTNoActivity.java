@@ -44,6 +44,8 @@ public class BTNoActivity extends AppCompatActivity {
 
         getWindow().setAttributes(lpWindow);
 
+        Log.e("BTNoActivity", "isConnecting: "+HomeActivity.isConnecting);
+
         Intent intent = getIntent();
         if (intent!=null) {
             String where = intent.getExtras().getString("where");
@@ -72,6 +74,7 @@ public class BTNoActivity extends AppCompatActivity {
                         break;
                     case R.id.okay:
                         // try again
+                        HomeActivity.disconnect=4;
                         homeactivity.dashback.setImageResource(0);
                         Intent intent1 = new Intent(getApplicationContext(), BTOnActivity.class);
                         intent1.putExtra("key", "again");

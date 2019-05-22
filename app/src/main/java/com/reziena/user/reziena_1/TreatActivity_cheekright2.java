@@ -104,192 +104,72 @@ public class TreatActivity_cheekright2 extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (countStart == 1) {
+                        if (countStart == 15) {
                             c_tright_line15.setBackgroundResource(R.drawable.cheekrightanim1);
                             ctrani15 = (AnimationDrawable) c_tright_line15.getBackground();
                             ctrani15.start();
-                        } if (countFin == 1) {
+                        } if (countFin == 15) {
                             if (ctrani15!=null) ctrani15.stop();
                             c_tright_txt1.setText("7 left");
                         }
-                        if (countStart == 2) {
+                        if (countStart == 16) {
                             c_tright_line16.setBackgroundResource(R.drawable.cheekrightanim1);
                             ctrani16 = (AnimationDrawable) c_tright_line16.getBackground();
                             ctrani16.start();
-                        } if (countFin == 2) {
+                        } if (countFin == 16) {
                             if (ctrani16!=null) ctrani16.stop();
                             c_tright_txt1.setText("6 left");
                         }
-                        if (countStart == 3) {
+                        if (countStart == 17) {
                             c_tright_line17.setBackgroundResource(R.drawable.cheekrightanim1);
                             ctrani17 = (AnimationDrawable) c_tright_line17.getBackground();
                             ctrani17.start();
-                        } if (countFin == 3) {
+                        } if (countFin == 17) {
                             if (ctrani17!=null) ctrani17.stop();
                             c_tright_txt1.setText("5 left");
                         }
-                        if (countStart == 4) {
+                        if (countStart == 18) {
                             c_tright_line18.setBackgroundResource(R.drawable.cheekrightanim1);
                             ctrani18 = (AnimationDrawable) c_tright_line18.getBackground();
                             ctrani18.start();
-                        } if (countFin == 4) {
+                        } if (countFin == 18) {
                             if (ctrani18!=null) ctrani18.stop();
                             c_tright_txt1.setText("4 left");
                             c_tright_txt1.setTextColor(Color.parseColor("#450969"));
                         }
-                        if (countStart == 5) {
+                        if (countStart == 19) {
                             c_tright_line19.setBackgroundResource(R.drawable.cheekrightmiddle1);
                             ctrani19 = (AnimationDrawable) c_tright_line19.getBackground();
                             ctrani19.start();
-                        } if (countFin == 5) {
+                        } if (countFin == 19) {
                             if (ctrani19!=null) ctrani19.stop();
                             c_tright_txt1.setText("3 left");
                             c_tright_txt1.setTextColor(Color.parseColor("#FFFFFF"));
                         }
-                        if (countStart == 6) {
+                        if (countStart == 20) {
                             c_tright_line20.setBackgroundResource(R.drawable.cheekrightanim1);
                             ctrani20 = (AnimationDrawable) c_tright_line20.getBackground();
                             ctrani20.start();
-                        } if (countFin == 6) {
+                        } if (countFin == 20) {
                             if (ctrani20!=null) ctrani20.stop();
                             c_tright_txt1.setText("2 left");
                         }
-                        if (countStart == 7) {
+                        if (countStart == 21) {
                             c_tright_line21.setBackgroundResource(R.drawable.cheekrightanim1);
                             ctrani21 = (AnimationDrawable) c_tright_line21.getBackground();
                             ctrani21.start();
-                        } if (countFin == 7) {
+                        } if (countFin == 21) {
                             if (ctrani21!=null) ctrani21.stop();
                             c_tright_txt1.setText("1 left");
                         }
-                        if (countStart == 8) {
+                        if (countStart == 22) {
                             c_tright_line22.setBackgroundResource(R.drawable.cheekrightanim1);
                             ctrani22 = (AnimationDrawable) c_tright_line22.getBackground();
                             ctrani22.start();
-                        } if (countFin == 8) {
+                        } if (countFin == 22) {
                             if (ctrani22!=null) ctrani22.stop();
                             c_tright_txt1.setText("DONE");
                             c_tright_txt1.setTextColor(Color.parseColor("#9E0958"));
-                        }
-                        if (countStart == 9) {
-                            String str ="THIS COLUMN HAS 14 LINES.\nPLACE THE DEVICE TO THE COLORED\nLINE AS SHOWN. AND PRESS THE CENTER\nBUTTON TO START TREATING ONE LINE";
-                            SpannableStringBuilder ssb = new SpannableStringBuilder(str);
-                            ssb.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 73, 127, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            component_txt.setText(ssb);
-                            c_tright_line1.setBackgroundResource(R.drawable.cheekrightanim2);
-                            ctrani1 = (AnimationDrawable) c_tright_line1.getBackground();
-                            ctrani1.start();
-                        } if (countFin == 9) {
-                            if (ctrani1!=null) ctrani1.stop();
-                            c_tright_txt2.setText("13 left");
-                        }
-                        if (countStart == 10) {
-                            c_tright_line2.setBackgroundResource(R.drawable.cheekrightanim2);
-                            ctrani2 = (AnimationDrawable) c_tright_line2.getBackground();
-                            ctrani2.start();
-                        } if (countFin == 10) {
-                            if (ctrani2!=null) ctrani2.stop();
-                            c_tright_txt2.setText("12 left");
-                        }
-                        if (countStart == 11) {
-                            c_tright_line3.setBackgroundResource(R.drawable.cheekrightanim2);
-                            ctrani3 = (AnimationDrawable) c_tright_line3.getBackground();
-                            ctrani3.start();
-                        } if (countFin == 11) {
-                            if (ctrani3!=null) ctrani3.stop();
-                            c_tright_txt2.setText("11 left");
-                        }
-                        if (countStart == 12) {
-                            c_tright_line4.setBackgroundResource(R.drawable.cheekrightanim2);
-                            ctrani4 = (AnimationDrawable) c_tright_line4.getBackground();
-                            ctrani4.start();
-                        } if (countFin == 12) {
-                            if (ctrani4!=null) ctrani4.stop();
-                            c_tright_txt2.setText("10 left");
-                        }
-                        if (countStart == 13) {
-                            c_tright_line5.setBackgroundResource(R.drawable.cheekrightanim2);
-                            ctrani5 = (AnimationDrawable) c_tright_line5.getBackground();
-                            ctrani5.start();
-                        } if (countFin == 13) {
-                            if (ctrani5!=null) ctrani5.stop();
-                            c_tright_txt2.setText("9 left");
-                        }
-                        if (countStart == 14) {
-                            c_tright_line6.setBackgroundResource(R.drawable.cheekrightanim2);
-                            ctrani6 = (AnimationDrawable) c_tright_line6.getBackground();
-                            ctrani6.start();
-                        } if (countFin == 14) {
-                            if (ctrani6!=null) ctrani6.stop();
-                            c_tright_txt2.setText("8 left");
-                        }
-                        if (countStart == 15) {
-                            c_tright_line7.setBackgroundResource(R.drawable.cheekrightanim2);
-                            ctrani7 = (AnimationDrawable) c_tright_line7.getBackground();
-                            ctrani7.start();
-                        } if (countFin == 15) {
-                            if (ctrani7!=null) ctrani7.stop();
-                            c_tright_txt2.setText("7 left");
-                            c_tright_txt2.setTextColor(Color.parseColor("#450969"));
-                        }
-                        if (countStart == 16) {
-                            c_tright_line8.setBackgroundResource(R.drawable.cheekrightmiddle2);
-                            ctrani8 = (AnimationDrawable) c_tright_line8.getBackground();
-                            ctrani8.start();
-                        } if (countFin == 16) {
-                            if (ctrani8!=null) ctrani8.stop();
-                            c_tright_txt2.setText("6 left");
-                            c_tright_txt2.setTextColor(Color.parseColor("#FFFFFF"));
-                        }
-                        if (countStart == 17) {
-                            c_tright_line9.setBackgroundResource(R.drawable.cheekrightanim2);
-                            ctrani9 = (AnimationDrawable) c_tright_line9.getBackground();
-                            ctrani9.start();
-                        } if (countFin == 17) {
-                            if (ctrani9!=null) ctrani9.stop();
-                            c_tright_txt2.setText("5 left");
-                        }
-                        if (countStart == 18) {
-                            c_tright_line10.setBackgroundResource(R.drawable.cheekrightanim2);
-                            ctrani10 = (AnimationDrawable) c_tright_line10.getBackground();
-                            ctrani10.start();
-                        } if (countFin == 18) {
-                            if (ctrani10!=null) ctrani10.stop();
-                            c_tright_txt2.setText("4 left");
-                        }
-                        if (countStart == 19) {
-                            c_tright_line11.setBackgroundResource(R.drawable.cheekrightanim2);
-                            ctrani11 = (AnimationDrawable) c_tright_line11.getBackground();
-                            ctrani11.start();
-                        } if (countFin == 19) {
-                            if (ctrani11!=null) ctrani11.stop();
-                            c_tright_txt2.setText("3 left");
-                        }
-                        if (countStart == 20) {
-                            c_tright_line12.setBackgroundResource(R.drawable.cheekrightanim2);
-                            ctrani12 = (AnimationDrawable) c_tright_line12.getBackground();
-                            ctrani12.start();
-                        } if (countFin == 20) {
-                            if (ctrani12!=null) ctrani12.stop();
-                            c_tright_txt2.setText("2 left");
-                        }
-                        if (countStart == 21) {
-                            c_tright_line13.setBackgroundResource(R.drawable.cheekrightanim2);
-                            ctrani13 = (AnimationDrawable) c_tright_line13.getBackground();
-                            ctrani13.start();
-                        } if (countFin == 21) {
-                            if (ctrani13!=null) ctrani13.stop();
-                            c_tright_txt2.setText("1 left");
-                        }
-                        if (countStart == 22) {
-                            c_tright_line14.setBackgroundResource(R.drawable.cheekrightanim2);
-                            ctrani14 = (AnimationDrawable) c_tright_line14.getBackground();
-                            ctrani14.start();
-                        } if (countFin == 22) {
-                            if (ctrani14!=null) ctrani14.stop();
-                            component_txt.setText("GOOD JOB");
-                            c_tright_txt2.setText("DONE");
-                            c_tright_txt2.setTextColor(Color.parseColor("#9E0958"));
                             data = 25;
                             cheekrightstring = "true";
 
@@ -311,6 +191,126 @@ public class TreatActivity_cheekright2 extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         }
+                        if (countStart == 1) {
+                            String str ="THIS COLUMN HAS 14 LINES.\nPLACE THE DEVICE TO THE COLORED\nLINE AS SHOWN. AND PRESS THE CENTER\nBUTTON TO START TREATING ONE LINE";
+                            SpannableStringBuilder ssb = new SpannableStringBuilder(str);
+                            ssb.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 73, 127, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            component_txt.setText(ssb);
+                            c_tright_line1.setBackgroundResource(R.drawable.cheekrightanim2);
+                            ctrani1 = (AnimationDrawable) c_tright_line1.getBackground();
+                            ctrani1.start();
+                        } if (countFin == 1) {
+                            if (ctrani1!=null) ctrani1.stop();
+                            c_tright_txt2.setText("13 left");
+                        }
+                        if (countStart == 2) {
+                            c_tright_line2.setBackgroundResource(R.drawable.cheekrightanim2);
+                            ctrani2 = (AnimationDrawable) c_tright_line2.getBackground();
+                            ctrani2.start();
+                        } if (countFin == 2) {
+                            if (ctrani2!=null) ctrani2.stop();
+                            c_tright_txt2.setText("12 left");
+                        }
+                        if (countStart == 3) {
+                            c_tright_line3.setBackgroundResource(R.drawable.cheekrightanim2);
+                            ctrani3 = (AnimationDrawable) c_tright_line3.getBackground();
+                            ctrani3.start();
+                        } if (countFin == 3) {
+                            if (ctrani3!=null) ctrani3.stop();
+                            c_tright_txt2.setText("11 left");
+                        }
+                        if (countStart == 4) {
+                            c_tright_line4.setBackgroundResource(R.drawable.cheekrightanim2);
+                            ctrani4 = (AnimationDrawable) c_tright_line4.getBackground();
+                            ctrani4.start();
+                        } if (countFin == 4) {
+                            if (ctrani4!=null) ctrani4.stop();
+                            c_tright_txt2.setText("10 left");
+                        }
+                        if (countStart == 5) {
+                            c_tright_line5.setBackgroundResource(R.drawable.cheekrightanim2);
+                            ctrani5 = (AnimationDrawable) c_tright_line5.getBackground();
+                            ctrani5.start();
+                        } if (countFin == 5) {
+                            if (ctrani5!=null) ctrani5.stop();
+                            c_tright_txt2.setText("9 left");
+                        }
+                        if (countStart == 6) {
+                            c_tright_line6.setBackgroundResource(R.drawable.cheekrightanim2);
+                            ctrani6 = (AnimationDrawable) c_tright_line6.getBackground();
+                            ctrani6.start();
+                        } if (countFin == 6) {
+                            if (ctrani6!=null) ctrani6.stop();
+                            c_tright_txt2.setText("8 left");
+                        }
+                        if (countStart == 7) {
+                            c_tright_line7.setBackgroundResource(R.drawable.cheekrightanim2);
+                            ctrani7 = (AnimationDrawable) c_tright_line7.getBackground();
+                            ctrani7.start();
+                        } if (countFin == 7) {
+                            if (ctrani7!=null) ctrani7.stop();
+                            c_tright_txt2.setText("7 left");
+                            c_tright_txt2.setTextColor(Color.parseColor("#450969"));
+                        }
+                        if (countStart == 8) {
+                            c_tright_line8.setBackgroundResource(R.drawable.cheekrightmiddle2);
+                            ctrani8 = (AnimationDrawable) c_tright_line8.getBackground();
+                            ctrani8.start();
+                        } if (countFin == 8) {
+                            if (ctrani8!=null) ctrani8.stop();
+                            c_tright_txt2.setText("6 left");
+                            c_tright_txt2.setTextColor(Color.parseColor("#FFFFFF"));
+                        }
+                        if (countStart == 9) {
+                            c_tright_line9.setBackgroundResource(R.drawable.cheekrightanim2);
+                            ctrani9 = (AnimationDrawable) c_tright_line9.getBackground();
+                            ctrani9.start();
+                        } if (countFin == 9) {
+                            if (ctrani9!=null) ctrani9.stop();
+                            c_tright_txt2.setText("5 left");
+                        }
+                        if (countStart == 10) {
+                            c_tright_line10.setBackgroundResource(R.drawable.cheekrightanim2);
+                            ctrani10 = (AnimationDrawable) c_tright_line10.getBackground();
+                            ctrani10.start();
+                        } if (countFin == 10) {
+                            if (ctrani10!=null) ctrani10.stop();
+                            c_tright_txt2.setText("4 left");
+                        }
+                        if (countStart == 11) {
+                            c_tright_line11.setBackgroundResource(R.drawable.cheekrightanim2);
+                            ctrani11 = (AnimationDrawable) c_tright_line11.getBackground();
+                            ctrani11.start();
+                        } if (countFin == 11) {
+                            if (ctrani11!=null) ctrani11.stop();
+                            c_tright_txt2.setText("3 left");
+                        }
+                        if (countStart == 12) {
+                            c_tright_line12.setBackgroundResource(R.drawable.cheekrightanim2);
+                            ctrani12 = (AnimationDrawable) c_tright_line12.getBackground();
+                            ctrani12.start();
+                        } if (countFin == 12) {
+                            if (ctrani12!=null) ctrani12.stop();
+                            c_tright_txt2.setText("2 left");
+                        }
+                        if (countStart == 13) {
+                            c_tright_line13.setBackgroundResource(R.drawable.cheekrightanim2);
+                            ctrani13 = (AnimationDrawable) c_tright_line13.getBackground();
+                            ctrani13.start();
+                        } if (countFin == 13) {
+                            if (ctrani13!=null) ctrani13.stop();
+                            c_tright_txt2.setText("1 left");
+                        }
+                        if (countStart == 14) {
+                            c_tright_line14.setBackgroundResource(R.drawable.cheekrightanim2);
+                            ctrani14 = (AnimationDrawable) c_tright_line14.getBackground();
+                            ctrani14.start();
+                        } if (countFin == 14) {
+                            if (ctrani14!=null) ctrani14.stop();
+                            component_txt.setText("GOOD JOB");
+                            c_tright_txt2.setText("DONE");
+                            c_tright_txt2.setTextColor(Color.parseColor("#9E0958"));
+                        }
 
                         setBack(countFin);
 
@@ -325,49 +325,49 @@ public class TreatActivity_cheekright2 extends AppCompatActivity {
     private void setBack(int count) {
         switch (count) {
             case 22:
-                c_tright_line14.setBackgroundResource(R.drawable.line1finish);
-            case 21:
-                c_tright_line13.setBackgroundResource(R.drawable.line1finish);
-            case 20:
-                c_tright_line12.setBackgroundResource(R.drawable.line1finish);
-            case 19:
-                c_tright_line11.setBackgroundResource(R.drawable.line1finish);
-            case 18:
-                c_tright_line10.setBackgroundResource(R.drawable.line1finish);
-            case 17:
-                c_tright_line9.setBackgroundResource(R.drawable.line1finish);
-            case 16:
-                c_tright_line8.setBackgroundResource(R.drawable.linemf1);
-            case 15:
-                c_tright_line7.setBackgroundResource(R.drawable.line1finish);
-            case 14:
-                c_tright_line6.setBackgroundResource(R.drawable.line1finish);
-            case 13:
-                c_tright_line5.setBackgroundResource(R.drawable.line1finish);
-            case 12:
-                c_tright_line4.setBackgroundResource(R.drawable.line1finish);
-            case 11:
-                c_tright_line3.setBackgroundResource(R.drawable.line1finish);
-            case 10:
-                c_tright_line2.setBackgroundResource(R.drawable.line1finish);
-            case 9:
-                c_tright_line1.setBackgroundResource(R.drawable.line1finish);
-            case 8:
-                c_tright_line22.setBackgroundResource(R.drawable.line123finish);
-            case 7:
-                c_tright_line21.setBackgroundResource(R.drawable.line123finish);
-            case 6:
-                c_tright_line20.setBackgroundResource(R.drawable.line123finish);
-            case 5:
-                c_tright_line19.setBackgroundResource(R.drawable.linemf123);
-            case 4:
-                c_tright_line18.setBackgroundResource(R.drawable.line123finish);
-            case 3:
-                c_tright_line17.setBackgroundResource(R.drawable.line123finish);
-            case 2:
-                c_tright_line16.setBackgroundResource(R.drawable.line123finish);
-            case 1:
                 c_tright_line15.setBackgroundResource(R.drawable.line123finish);
+            case 21:
+                c_tright_line16.setBackgroundResource(R.drawable.line123finish);
+            case 20:
+                c_tright_line17.setBackgroundResource(R.drawable.line123finish);
+            case 19:
+                c_tright_line18.setBackgroundResource(R.drawable.line123finish);
+            case 18:
+                c_tright_line19.setBackgroundResource(R.drawable.linemf123);
+            case 17:
+                c_tright_line20.setBackgroundResource(R.drawable.line123finish);
+            case 16:
+                c_tright_line21.setBackgroundResource(R.drawable.line123finish);
+            case 15:
+                c_tright_line22.setBackgroundResource(R.drawable.line123finish);
+            case 14:
+                c_tright_line14.setBackgroundResource(R.drawable.line1finish);
+            case 13:
+                c_tright_line13.setBackgroundResource(R.drawable.line1finish);
+            case 12:
+                c_tright_line12.setBackgroundResource(R.drawable.line1finish);
+            case 11:
+                c_tright_line11.setBackgroundResource(R.drawable.line1finish);
+            case 10:
+                c_tright_line10.setBackgroundResource(R.drawable.line1finish);
+            case 9:
+                c_tright_line9.setBackgroundResource(R.drawable.line1finish);
+            case 8:
+                c_tright_line8.setBackgroundResource(R.drawable.linemf1);
+            case 7:
+                c_tright_line7.setBackgroundResource(R.drawable.line1finish);
+            case 6:
+                c_tright_line6.setBackgroundResource(R.drawable.line1finish);
+            case 5:
+                c_tright_line5.setBackgroundResource(R.drawable.line1finish);
+            case 4:
+                c_tright_line4.setBackgroundResource(R.drawable.line1finish);
+            case 3:
+                c_tright_line3.setBackgroundResource(R.drawable.line1finish);
+            case 2:
+                c_tright_line2.setBackgroundResource(R.drawable.line1finish);
+            case 1:
+                c_tright_line1.setBackgroundResource(R.drawable.line1finish);
         }
     }
 
