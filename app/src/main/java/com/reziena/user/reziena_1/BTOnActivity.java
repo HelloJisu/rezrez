@@ -62,7 +62,6 @@ public class BTOnActivity extends AppCompatActivity {
     ImageView image;
     static Context mcontext;
     static BluetoothGatt mBluetoothGatt;
-    public static boolean BTOn = false;
 
     static boolean found = false;
 
@@ -93,7 +92,7 @@ public class BTOnActivity extends AppCompatActivity {
 
         HomeActivity.imageView2.setImageResource(R.drawable.nondeviceicon);
         Log.e("지금은 ", "BTOnActivity");
-        BTOn = true;
+        HomeActivity.BTOn = true;
 
         mHandler = new Handler();
 
@@ -112,7 +111,11 @@ public class BTOnActivity extends AppCompatActivity {
             text = "Turn on the device and \n please wait. \n\n";
         }
 
-        startThread();
+        try {
+            startThread();
+        } catch (Exception e) {
+            Log.e("BTOnActivity", "startThread Exception:: " +e.getMessage());
+        }
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             Intent intent;
@@ -121,7 +124,12 @@ public class BTOnActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.no_retry: case R.id.imageButton:
-                        homeactivity.dashback.setImageResource(0);
+                        HomeActivity.isConnecting = false;
+                        try {
+                            homeactivity.dashback.setImageResource(0);
+                        } catch (Exception e) {
+                            Log.e("BTOnActivity", "setImageResource Exception:: " +e.getMessage());
+                        }
                         finish();
                         break;
                     /*case R.id.retry:
@@ -177,7 +185,10 @@ public class BTOnActivity extends AppCompatActivity {
 
         Log.e("BTOnActivity", "disconnect: "+HomeActivity.disconnect);
         Log.e("BTOnActivity", "isConnecting: "+HomeActivity.isConnecting);
-        if (HomeActivity.disconnect > 3 || !HomeActivity.isConnecting) discoveryStart();
+        if (HomeActivity.disconnect > 3 || !HomeActivity.isConnecting) {
+            Log.e("BTOnActivity", "discoveryStart()");
+            discoveryStart();
+        }
     }
 
     public static void discoveryStart() {
@@ -196,7 +207,7 @@ public class BTOnActivity extends AppCompatActivity {
         mBLEScanner = mBtAdapter.getBluetoothLeScanner();
         mBLEScanner.startScan(Collections.singletonList(scan_filter), settings, mScanCallback);
 
-        HomeActivity.mBluetoothLeService.disconnect();
+        //HomeActivity.mBluetoothLeService.disconnect();
         try {
             HomeActivity.mBluetoothLeService.connect(HomeActivity.devAdd);
         } catch (Exception e) {
@@ -257,7 +268,7 @@ public class BTOnActivity extends AppCompatActivity {
 
     protected void onPause() {
         super.onPause();
-        BTOn = false;
+        HomeActivity.BTOn = false;
         try {
             timerTask.cancel();
         } catch (Exception e) {

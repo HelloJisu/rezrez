@@ -87,13 +87,17 @@ public class BluetoothActivity extends AppCompatActivity {
         image = findViewById(R.id.image);
 
         try {
-            if (Integer.parseInt(battery)<=HomeActivity.lowBattery){
-                HomeActivity.imageView2.setImageResource(R.drawable.bdev);
-                deviceBattery.setText("Low battery.\n (Automatically turned off\n when below 10%)\n\n Battery : " + battery + "%");
-            }
-            else {
-                HomeActivity.imageView2.setImageResource(R.drawable.ellipsehomethera_icon);
-                deviceBattery.setText("Connected \n\n Battery : " + battery + "%");
+            Log.e("Battery:: ", battery);
+            if (Integer.parseInt(battery)<=0) {
+                deviceBattery.setText("");
+            } else {
+                if (Integer.parseInt(battery) <= HomeActivity.lowBattery) {
+                    HomeActivity.imageView2.setImageResource(R.drawable.bdev);
+                    deviceBattery.setText("Low battery.\n (Automatically turned off\n when below 10%)\n\n Battery : " + battery + "%");
+                } else {
+                    HomeActivity.imageView2.setImageResource(R.drawable.ellipsehomethera_icon);
+                    deviceBattery.setText("Connected \n\n Battery : " + battery + "%");
+                }
             }
         } catch (Exception e) {}
 
@@ -101,6 +105,7 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void run() {
                 runOnUiThread(() -> {
+                    HomeActivity.send("0x61");
                     //Log.e("지금은", "TimerTask()이다 "+battery);
                     if (sendCount<10) {
                         //HomeActivity.send("0x61"); // 0x61
@@ -108,13 +113,16 @@ public class BluetoothActivity extends AppCompatActivity {
                     }
                     image.setImageResource(R.drawable.btconn);
                     try {
-                        if (Integer.parseInt(battery)<=HomeActivity.lowBattery){
-                            HomeActivity.imageView2.setImageResource(R.drawable.bdev);
-                            deviceBattery.setText("Low battery.\n (Automatically turned off\n when below 10%)\n\n Battery : " + battery + "%");
-                        }
-                        else {
-                            HomeActivity.imageView2.setImageResource(R.drawable.ellipsehomethera_icon);
-                            deviceBattery.setText("Connected \n\n Battery : " + battery + "%");
+                        if (Integer.parseInt(battery)<=0) {
+                            deviceBattery.setText("");
+                        } else {
+                            if (Integer.parseInt(battery) <= HomeActivity.lowBattery) {
+                                HomeActivity.imageView2.setImageResource(R.drawable.bdev);
+                                deviceBattery.setText("Low battery.\n (Automatically turned off\n when below 10%)\n\n Battery : " + battery + "%");
+                            } else {
+                                HomeActivity.imageView2.setImageResource(R.drawable.ellipsehomethera_icon);
+                                deviceBattery.setText("Connected \n\n Battery : " + battery + "%");
+                            }
                         }
                     } catch (Exception e) {
                         Log.e("BluetoothActivity", "Exception1:: "+e.getMessage());

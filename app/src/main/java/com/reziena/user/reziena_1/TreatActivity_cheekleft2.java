@@ -462,7 +462,8 @@ public class TreatActivity_cheekleft2 extends AppCompatActivity {
         else direction.setText("DEVICE LEVEL : 0");
         SharedPreferences sp_treat = getSharedPreferences("cheek_l", MODE_PRIVATE);
 
-        countFin = sp_treat.getInt("cheek_l", 0);
+        //countFin = sp_treat.getInt("cheek_l", 0);
+        countFin = 0;
         setBack(countFin);
 
         imageView2.setClickable(true);

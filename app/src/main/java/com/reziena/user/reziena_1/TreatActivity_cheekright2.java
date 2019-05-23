@@ -749,7 +749,8 @@ public class TreatActivity_cheekright2 extends AppCompatActivity {
         if (HomeActivity.staticLevel!=null) direction.setText(HomeActivity.staticLevel);
         else direction.setText("DEVICE LEVEL : 0");
         SharedPreferences sp_treat = getSharedPreferences("cheek_r", MODE_PRIVATE);
-        countFin = sp_treat.getInt("cheek_r", 0);
+        //countFin = sp_treat.getInt("cheek_r", 0);
+        countFin = 0;
         setBack(countFin);
 
         // 베터리

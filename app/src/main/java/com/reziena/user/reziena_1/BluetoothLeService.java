@@ -63,6 +63,8 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+
+            HomeActivity.isConnecting = true;
             Log.e("onConnectionStateChange", "init");
             Log.e(Tag, String.valueOf(status));
             Log.e(Tag+ "newState", String.valueOf(newState));
@@ -84,8 +86,7 @@ public class BluetoothLeService extends Service {
                 });
 
                 if (BluetoothActivity.Bluetooth) {
-
-                    if (!BTOnActivity.BTOn) {
+                    if (!HomeActivity.BTOn) {
                         Intent intent = new Intent(getApplicationContext(), BTNoActivity.class);
                         intent.putExtra("where", "missing");
                         //intent.putExtra("key", "first");
@@ -93,21 +94,21 @@ public class BluetoothLeService extends Service {
                     }
                 } else {
                     disconnect();
-
-                    if (HomeActivity.disconnect > 3) {
-                        HomeActivity.disconnect = 0;
-                        if (!BTOnActivity.BTOn) {
-                            Intent intent = new Intent(getApplicationContext(), BTNoActivity.class);
-                            intent.putExtra("where", "missing");
-                            //intent.putExtra("key", "first");
-                            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                        }
+                    if (!HomeActivity.BTOn) {
+                        Intent intent = new Intent(getApplicationContext(), BTNoActivity.class);
+                        intent.putExtra("where", "missing");
+                        //intent.putExtra("key", "first");
+                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                     } else {
-                        //HomeActivity.mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
-                        HomeActivity.mBluetoothLeService.initialize();
-                        HomeActivity.mBluetoothLeService.connect(mBluetoothDeviceAddress);
-                        HomeActivity.isConnecting = true;
-                        //HomeActivity.mBluetoothGatt = HomeActivity.device.connectGatt(mContext, false, mGattCallback, BluetoothDevice.TRANSPORT_LE);
+
+                        if (HomeActivity.disconnect > 3) {
+                            HomeActivity.disconnect = 0;
+                        } else {
+                            //HomeActivity.mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
+                            HomeActivity.mBluetoothLeService.initialize();
+                            HomeActivity.mBluetoothLeService.connect(mBluetoothDeviceAddress);
+                            //HomeActivity.mBluetoothGatt = HomeActivity.device.connectGatt(mContext, false, mGattCallback, BluetoothDevice.TRANSPORT_LE);
+                        }
                     }
                 }
                 return;
@@ -484,6 +485,7 @@ public class BluetoothLeService extends Service {
         HomeActivity.mBluetoothGatt.close();
         mBluetoothManager = null;
         HomeActivity.disconnect++;
+        HomeActivity.isConnecting = false;
         //HomeActivity.gattCharacteristics = null;
         //HomeActivity.characteristics = null;
         //HomeActivity.mGattCharacteristics = null;

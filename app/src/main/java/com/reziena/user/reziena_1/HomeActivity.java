@@ -119,6 +119,8 @@ public class HomeActivity extends AppCompatActivity {
 
     public static boolean isConnecting = false;
 
+    public static boolean BTOn = false;
+
     public static int sendCount = 1;
 
     LoginActivity loginActivity = (LoginActivity) LoginActivity.loginactivity;
@@ -242,7 +244,8 @@ public class HomeActivity extends AppCompatActivity {
         //sendMessage = "0x61";
 
         if (mGattCharacteristics != null) {
-            Log.e("mGattCharacteristics", "size"+String.valueOf(mGattCharacteristics.size()));
+            isConnecting = false;
+            Log.e("mGattCharacteristics", "size"+mGattCharacteristics.size());
             if (isConn) {
                 Log.e("isConn", "true");
                 int k = 0;
@@ -384,7 +387,7 @@ public class HomeActivity extends AppCompatActivity {
             Log.e("find__", String.valueOf(result.getDevice()));
             if (devInfo.contains(devName)) {
                 find++;
-                Log.e("find__", find+" / "+String.valueOf(result.getDevice()));
+                Log.e("find__", find+" / " + result.getDevice());
                 devAdd = String.valueOf(result.getDevice());
                 device = result.getDevice();
                 if (find==1) {
@@ -399,7 +402,7 @@ public class HomeActivity extends AppCompatActivity {
                     Intent gattServiceIntent = new Intent(getApplicationContext(), BluetoothLeService.class);
                     Log.e("HomeActivity", "isBound::"+isBound);
 
-                    /*if (!isBound) {
+                    if (!isBound) {
                         try {
                             isBound = bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
                             Log.e("isBound", isBound+"");
@@ -410,14 +413,14 @@ public class HomeActivity extends AppCompatActivity {
                         if (!mBluetoothLeService.initialize())
                             finish();
                         if (!isConn) mBluetoothLeService.connect(devAdd);
-                    }*/
+                    }
 
-                    try {
+                    /*try {
                         isBound = bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
                         Log.e("isBound", isBound+"");
                     } catch(Exception e) {
                         Log.e("HomeActivity", "Exception:: "+e.getMessage());
-                    }
+                    }*/
 
                     try {
                         mBLEScanner.stopScan(mScanCallback);
@@ -2473,8 +2476,12 @@ public class HomeActivity extends AppCompatActivity {
             imageView2.setImageResource(R.drawable.nondeviceicon);
             isConn = false;
             if (isFirst == false) {
-                Log.e("HomeActivity", "onResume, isFirst == false + disconnectGattServer():: battery:: " +deviceBattery);
-                disconnectGattServer();
+                //Log.e("HomeActivity", "onResume, isFirst == false + disconnectGattServer():: battery:: " +deviceBattery);
+                /*if (!isConnecting) {
+                    Log.e("HomeActivity", "isConnecting false");
+                    disconnectGattServer();
+                } else Log.e("HomeActivity", "isConnecting true");*/
+                //disconnectGattServer();
             }
         }
 
