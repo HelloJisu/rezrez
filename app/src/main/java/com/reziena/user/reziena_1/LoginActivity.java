@@ -215,17 +215,19 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 conn.setConnectTimeout(1000);
                 conn.connect();
                 int responseCode = conn.getResponseCode();
+                Log.e("internet", responseCode+"");
                 if (responseCode == 204) iConnected = true;
                 else iConnected = false;
             } catch (Exception e) {
                 e.printStackTrace();
+                Log.e("NO Internet Exception", e.getMessage());
                 iConnected = false;
             }
             if (conn != null) {
                 conn.disconnect();
             }
         }
-        public boolean isSuccess(){
+        public boolean isSuccess() {
             return iConnected;
         }
     }

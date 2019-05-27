@@ -16,6 +16,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.ParcelUuid;
@@ -62,6 +63,8 @@ public class BTOnActivity extends AppCompatActivity {
     static Context mcontext;
     static BluetoothGatt mBluetoothGatt;
 
+    static boolean found = false;
+
     static private BluetoothLeScanner mBLEScanner;
 
     @Override
@@ -89,6 +92,7 @@ public class BTOnActivity extends AppCompatActivity {
 
         HomeActivity.imageView2.setImageResource(R.drawable.nondeviceicon);
         Log.e("지금은 ", "BTOnActivity");
+        HomeActivity.BTOn = true;
 
         mHandler = new Handler();
 
@@ -107,7 +111,11 @@ public class BTOnActivity extends AppCompatActivity {
             text = "Turn on the device and \n please wait. \n\n";
         }
 
-        startThread();
+        try {
+            startThread();
+        } catch (Exception e) {
+            Log.e("BTOnActivity", "startThread Exception:: " +e.getMessage());
+        }
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             Intent intent;
@@ -116,9 +124,12 @@ public class BTOnActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.no_retry: case R.id.imageButton:
-                        intent = new Intent(getApplicationContext(), HomeActivity.class);
-                        startActivity(intent);
-                        homeactivity.dashback.setImageResource(0);
+                        HomeActivity.isConnecting = false;
+                        try {
+                            homeactivity.dashback.setImageResource(0);
+                        } catch (Exception e) {
+                            Log.e("BTOnActivity", "setImageResource Exception:: " +e.getMessage());
+                        }
                         finish();
                         break;
                     /*case R.id.retry:
@@ -172,14 +183,19 @@ public class BTOnActivity extends AppCompatActivity {
         Timer timer = new Timer();
         timer.schedule(timerTask, 0, 1000);
 
-        discoveryStart();
+        Log.e("BTOnActivity", "disconnect: "+HomeActivity.disconnect);
+        Log.e("BTOnActivity", "isConnecting: "+HomeActivity.isConnecting);
+        if (HomeActivity.disconnect > 3 || !HomeActivity.isConnecting) {
+            Log.e("BTOnActivity", "discoveryStart()");
+            discoveryStart();
+        }
     }
 
     public static void discoveryStart() {
 
-        /*List<ScanFilter> filters= new ArrayList<>();
+        List<ScanFilter> filters= new ArrayList<>();
         ScanFilter scan_filter= new ScanFilter.Builder()
-                //.setServiceUuid( new ParcelUuid( MY_UUID ) )
+                .setServiceUuid( new ParcelUuid( HomeActivity.Nordic_UART_Service ) )
                 //.setDeviceName("Young&be")
                 .build();
         filters.add( scan_filter );
@@ -190,8 +206,8 @@ public class BTOnActivity extends AppCompatActivity {
 
         mBLEScanner = mBtAdapter.getBluetoothLeScanner();
         mBLEScanner.startScan(Collections.singletonList(scan_filter), settings, mScanCallback);
-        */
-        HomeActivity.mBluetoothLeService.disconnect();
+
+        //HomeActivity.mBluetoothLeService.disconnect();
         try {
             HomeActivity.mBluetoothLeService.connect(HomeActivity.devAdd);
         } catch (Exception e) {
@@ -224,27 +240,40 @@ public class BTOnActivity extends AppCompatActivity {
             int find = 0;
             Log.e("find", String.valueOf(result.getDevice()));
             if (devInfo.contains(HomeActivity.devName)) {
+                found = true;
                 find++;
+
                 HomeActivity.devAdd = String.valueOf(result.getDevice());
                 device = result.getDevice();
                 if (find==1) {
                     Log.e("find_device____", devInfo);
-                    //Intent gattServiceIntent = new Intent(mcontext, BluetoothLeService.class);
-                    //bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
                     try {
                         mBLEScanner.stopScan(mScanCallback);
                         Log.e("stopScan", "stopped");
                     } catch (Exception e) {
                         Log.e("stopScan", "error"+e.getMessage());
                     }
+                    if (!HomeActivity.mBluetoothLeService.initialize())
+                        Log.e("mBluetoothLeService", "not initialize");
+                    if (!HomeActivity.isConn)
+                        HomeActivity.mBluetoothLeService.connect(HomeActivity.devAdd);
                 }
             }
         }
     };
 
+    protected void onResume() {
+        super.onResume();
+    }
+
     protected void onPause() {
         super.onPause();
-        timerTask.cancel();
+        HomeActivity.BTOn = false;
+        try {
+            timerTask.cancel();
+        } catch (Exception e) {
+            Log.e("BTOnActivity", "Exception:: "+e.getMessage());
+        }
         finish();
     }
 
