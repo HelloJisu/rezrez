@@ -109,8 +109,6 @@ public class WrinklesActivity extends AppCompatActivity {
         switch (requestCode){
             case REQUEST_CAMERA:
                 if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
                     finish();
                 }
                 if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED && grantResults[1]==PackageManager.PERMISSION_GRANTED){//동의 했을 경우

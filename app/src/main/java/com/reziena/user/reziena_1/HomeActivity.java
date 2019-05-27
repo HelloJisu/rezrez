@@ -927,12 +927,12 @@ public class HomeActivity extends AppCompatActivity {
                                     ha4.startAnimation(home444);
                                     ha5.startAnimation(home555);
                                     ha6.startAnimation(home666);
+                                    ha7.startAnimation(home777);
                                     treatbtn.setClickable(false);
                                     historyBtn.setClickable(false);
                                     moisture.setVisibility(View.VISIBLE);
                                     wrinkles.setVisibility(View.VISIBLE);
                                     more.setVisibility(View.VISIBLE);
-                                    ha7.startAnimation(home777);
                                     toolbar.setVisibility(View.INVISIBLE);
                                     arrow.setImageResource(R.drawable.xdash);
                                     new Handler().postDelayed(new Runnable()
