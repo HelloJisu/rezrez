@@ -76,6 +76,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class LoginmainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,View.OnClickListener,AuthenticationListener {
@@ -247,7 +248,7 @@ public class LoginmainActivity extends AppCompatActivity implements GoogleApiCli
                 String pw = etPassword.getText().toString();
 
                 Login task = new Login();
-                task.execute("http://"+HomeActivity.IP_Address+"/login.php", id, pw);
+                task.execute("http://"+HomeActivity.IP_Address+"/login.php", id, encryptSHA512(pw+id));
 
             }
         });
@@ -257,6 +258,23 @@ public class LoginmainActivity extends AppCompatActivity implements GoogleApiCli
         google.setOnClickListener(this);
         facebook.setOnClickListener(this);
         btn_login.setOnClickListener(this);
+    }
+
+    private static String encryptSHA512(String target) {
+        MessageDigest sh = null;
+        try {
+            sh = MessageDigest.getInstance("SHA-512");
+        }
+        catch (NoSuchAlgorithmException e) {
+            Log.e("encryptSHA512", "Exception:: "+e.getMessage());
+        }
+        sh.update(target.getBytes());
+
+        StringBuffer sb = new StringBuffer();
+
+        for (byte b:sh.digest())
+            sb.append(Integer.toHexString(0xff & b));
+        return sb.toString();
     }
 
     public class LoginCallback implements FacebookCallback<LoginResult> {
@@ -764,7 +782,7 @@ public class LoginmainActivity extends AppCompatActivity implements GoogleApiCli
 
                 HttpURLConnection httpURLConnection= (HttpURLConnection)url.openConnection();
                 httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);;
+                httpURLConnection.setConnectTimeout(5000);
 
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.connect();

@@ -29,6 +29,11 @@ import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -104,13 +109,10 @@ import java.util.UUID;
 import at.grabner.circleprogress.CircleProgressView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-
 public class HomeActivity extends AppCompatActivity {
 
-    public static boolean isHave=false;
-    public static boolean isConn =false;
+    public static boolean isHave = false;
+    public static boolean isConn = false;
 
     public static String kind = "";
     public static int receiveResult = 0;
@@ -127,24 +129,24 @@ public class HomeActivity extends AppCompatActivity {
     Signin2Activity signin2 = (Signin2Activity) Signin2Activity.signin2;
     private static final int REQUEST_BLUETOOTH = 1;
     public static Handler mHandler;
-    boolean measureWrinkle=false;
+    boolean measureWrinkle = false;
     String start;
-    int last=0;
+    int last = 0;
     public static int lowBattery = 15;
-    CircleProgressView mois_c,oiㅣ_c,res_c,elas_c,anti_c, mois_c2,oiㅣ_c2,res_c2,elas_c2,anti_c2;
+    CircleProgressView mois_c, oiㅣ_c, res_c, elas_c, anti_c, mois_c2, oiㅣ_c2, res_c2, elas_c2, anti_c2;
 
     public static Context mcontext;
 
     public static BluetoothDevice device;
 
-    public static String wrinkleLevel="";
+    public static String wrinkleLevel = "";
     String lastSkinDate = "0000-00-00";
 
-    static int max=0;
-    public static String where=null;
-    public static String whereTreat=null;
-    public static int countStart=0;
-    public static String staticLevel=null, checkDiff;
+    static int max = 0;
+    public static String where = null;
+    public static String whereTreat = null;
+    public static int countStart = 0;
+    public static String staticLevel = null, checkDiff;
 
     // 스마트폰끼리의 UUID
     public static final UUID Nordic_UART_Descriptor = UUID.fromString("00002902-0000-1000-8000-00805F9B34");
@@ -162,10 +164,10 @@ public class HomeActivity extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BT = 5;
     public static BluetoothLeService mBluetoothLeService;
 
-    public static byte data=0x61;
+    public static byte data = 0x61;
 
     int count;
-    public static int deviceLevel=0;
+    public static int deviceLevel = 0;
 
     Animation alphaback;
     RenderScript rs, rs2;
@@ -177,14 +179,14 @@ public class HomeActivity extends AppCompatActivity {
     private DatabaseReference wrinklemain_txt;
     public static Activity homeactivity;
     String wrinkle_string;
-    RelativeLayout design_bottom_sheet,moisture,wrinkles,close;
-    LinearLayout toolbar,toolbar_dash, historyBtn, dashall2,historylayout,historylayout2,historyclose,historyc,treatclose,closedash;
-    LinearLayout home1,home2,home3,home4,home5,home8,home9,dashall,ha1,ha2,ha3,ha4,ha5,ha6,ha7,dashall3,dashall4,treatbtn,more;
-    ImageView logo,backgroundimg,dashback,arrow,arrow2,logimg,aboutimg;
+    RelativeLayout design_bottom_sheet, moisture, wrinkles, close;
+    LinearLayout toolbar, toolbar_dash, historyBtn, dashall2, historylayout, historylayout2, historyclose, historyc, treatclose, closedash;
+    LinearLayout home1, home2, home3, home4, home5, home8, home9, dashall, ha1, ha2, ha3, ha4, ha5, ha6, ha7, dashall3, dashall4, treatbtn, more;
+    ImageView logo, backgroundimg, dashback, arrow, arrow2, logimg, aboutimg;
     CircleImageView image_main;
     BottomSheetBehavior bottomSheetBehavior;
-    TextView  moisture_score_main, wrinkle_score_main, skintype_main, skintype, doneday, missday, percent,profile,product,logout, about, xcount, checkcount;
-    TextView goldString,silverString,bronzeString,weektxt,weekof;
+    TextView moisture_score_main, wrinkle_score_main, skintype_main, skintype, doneday, missday, percent, profile, product, logout, about, xcount, checkcount;
+    TextView goldString, silverString, bronzeString, weektxt, weekof;
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_IMAGE = 2;
@@ -199,7 +201,7 @@ public class HomeActivity extends AppCompatActivity {
 
     ImageView[] crown = new ImageView[4];
 
-    int moisture_per=0, wrinkle_per=0;
+    int moisture_per = 0, wrinkle_per = 0;
 
     ImageView[] check = new ImageView[7];
     public static ImageView imageView2;
@@ -215,28 +217,97 @@ public class HomeActivity extends AppCompatActivity {
     static BluetoothGattCharacteristic characteristic = null;
     ArrayList<BluetoothGattCharacteristic> charas;
 
-    private String DB_skintype="", DB_moisture="", DB_wrinkle="";
+    private String DB_skintype = "", DB_moisture = "", DB_wrinkle = "";
     int countCheck = -1;
     public static int deviceBattery = -1;
 
     int find = 0;
     public static boolean isFirst = true;
 
+    LocationManager locationManager;
+    private LocationListener locationListener = null;
+    Location location;
+    private boolean isGPSEnabled = false;
+    private boolean isNetworkEnabled = false;
+
     public static boolean isBound = false;
 
-    public static int disconnect=0;
+    public static int disconnect = 0;
 
     public static final String CONNECTION_CONFIRM_CLIENT_URL = "http://clients3.google.com/generate_204";
     private static boolean iConnected;
 
     private void checkPermission() {
-        int permissionLOCATION = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
+        int permissionLOCATION = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
 
         if (permissionLOCATION == PackageManager.PERMISSION_GRANTED) {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, gpsLocationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, gpsLocationListener);
             discoveryStart();
+        } else
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_BLUETOOTH);
+    }
+
+    final LocationListener gpsLocationListener = new LocationListener() {
+        public void onLocationChanged(Location location) {
+
+            String provider = location.getProvider();
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+            double altitude = location.getAltitude();
+
+            Log.e("위치정보::", "위치정보: "+provider+" / 위도: "+longitude+" / 경도: "+latitude+" / 고도: "+altitude);
+
+            getCityName(latitude, longitude);
+
         }
-        else
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_BLUETOOTH);
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+
+        public void onProviderEnabled(String provider) {
+        }
+
+        public void onProviderDisabled(String provider) {
+        }
+    };
+
+    private void getCityName(double latitude, double longitude) {
+        Log.e("getCityName:", "init");
+
+        // Getting GPS status
+        isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        // Getting network status
+        isNetworkEnabled = locationManager
+                .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (isGPSEnabled && isNetworkEnabled) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                return;
+            } else {
+                Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
+
+                List<Address> addresses = new ArrayList<>();
+                try {
+                    addresses = gcd.getFromLocation(latitude, longitude, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Log.e("주소:", addresses+"");
+                Log.e("국가:", addresses.get(0).getCountryName());
+                Log.e("도시: getAdminArea:: ", addresses.get(0).getAdminArea());
+                Log.e("도시: getSubLocality:: ", addresses.get(0).getSubLocality());
+            }
+
+        } else {
+            Log.e("Gps 상태!!", "당신의 GPS 상태 : OFF");
+        }
     }
 
     public static void setNotification() {
@@ -245,14 +316,30 @@ public class HomeActivity extends AppCompatActivity {
 
         if (mGattCharacteristics != null) {
             isConnecting = false;
-            Log.e("mGattCharacteristics", "size"+mGattCharacteristics.size());
+            Log.e("mGattCharacteristics", "size" + mGattCharacteristics.size());
             if (isConn) {
                 Log.e("isConn", "true");
                 int k = 0;
                 for (int i = 0; i < mGattCharacteristics.size() - 1; i++) {
                     switch (i) {
-                        case 0: k = 4; break; case 1: k = 0; break; case 2: k = 2; break;
-                        case 3: k = 1; break; case 4: k = 3; break; case 5: k = 1; break;
+                        case 0:
+                            k = 4;
+                            break;
+                        case 1:
+                            k = 0;
+                            break;
+                        case 2:
+                            k = 2;
+                            break;
+                        case 3:
+                            k = 1;
+                            break;
+                        case 4:
+                            k = 3;
+                            break;
+                        case 5:
+                            k = 1;
+                            break;
                     }
                     for (int j = 0; j < k; j++) {
                         if (mGattCharacteristics.get(i).get(j).getUuid().equals(Nordic_UART_RX)) {
@@ -281,7 +368,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public static void send(String m) {
-        if (characteristic!=null) {
+        if (characteristic != null) {
             if (m.contains("/")) {
                 where = m.split("/")[0];
                 m = m.split("/")[1];
@@ -290,14 +377,22 @@ public class HomeActivity extends AppCompatActivity {
             sendMessage = m;
 
             switch (sendMessage) {
-                case "0x22": data=0x22; break;
-                case "0x31": data=0x31; break;
-                case "0x34": data=0x34; break;
-                case "0x61": data=0x61; break;
+                case "0x22":
+                    data = 0x22;
+                    break;
+                case "0x31":
+                    data = 0x31;
+                    break;
+                case "0x34":
+                    data = 0x34;
+                    break;
+                case "0x61":
+                    data = 0x61;
+                    break;
             }
 
-            Toast.makeText(mcontext, "SEND: "+sendMessage, Toast.LENGTH_SHORT).show();
-            Log.e("send", sendMessage+"-----------------------------------------------");
+            Toast.makeText(mcontext, "SEND: " + sendMessage, Toast.LENGTH_SHORT).show();
+            Log.e("send", sendMessage + "-----------------------------------------------");
 
             final int charaProp = characteristic.getProperties();
             if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
@@ -341,15 +436,15 @@ public class HomeActivity extends AppCompatActivity {
     private void discoveryStart() {
         Log.e("discoveryStart()", "init");
 
-        List<ScanFilter> filters= new ArrayList<>();
-        ScanFilter scan_filter= new ScanFilter.Builder()
-                .setServiceUuid( new ParcelUuid(Nordic_UART_Service) )
+        List<ScanFilter> filters = new ArrayList<>();
+        ScanFilter scan_filter = new ScanFilter.Builder()
+                .setServiceUuid(new ParcelUuid(Nordic_UART_Service))
                 //.setDeviceName("Young&be")
                 .build();
-        filters.add( scan_filter );
+        filters.add(scan_filter);
 
-        ScanSettings settings= new ScanSettings.Builder()
-                .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER )
+        ScanSettings settings = new ScanSettings.Builder()
+                .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER)
                 .build();
 
         mBLEScanner = mBtAdapter.getBluetoothLeScanner();
@@ -361,7 +456,7 @@ public class HomeActivity extends AppCompatActivity {
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
         String getTime = sdf.format(date);
-        Log.e("BT Time", "startScan: "+getTime);
+        Log.e("BT Time", "startScan: " + getTime);
     }
 
     private ScanCallback mScanCallback = new ScanCallback() {
@@ -379,7 +474,8 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onScanFailed(int errorCode) {}
+        public void onScanFailed(int errorCode) {
+        }
 
         private void processResult(final ScanResult result) {
 
@@ -387,27 +483,27 @@ public class HomeActivity extends AppCompatActivity {
             Log.e("find__", String.valueOf(result.getDevice()));
             if (devInfo.contains(devName)) {
                 find++;
-                Log.e("find__", find+" / " + result.getDevice());
+                Log.e("find__", find + " / " + result.getDevice());
                 devAdd = String.valueOf(result.getDevice());
                 device = result.getDevice();
-                if (find==1) {
+                if (find == 1) {
 
                     long now = System.currentTimeMillis();
                     Date date = new Date(now);
                     SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
                     String getTime = sdf.format(date);
-                    Log.e("BT Time", "findDevice: "+getTime);
+                    Log.e("BT Time", "findDevice: " + getTime);
                     Log.e("find_device____", devInfo);
 
                     Intent gattServiceIntent = new Intent(getApplicationContext(), BluetoothLeService.class);
-                    Log.e("HomeActivity", "isBound::"+isBound);
+                    Log.e("HomeActivity", "isBound::" + isBound);
 
                     if (!isBound) {
                         try {
                             isBound = bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
-                            Log.e("isBound", isBound+"");
-                        } catch(Exception e) {
-                            Log.e("HomeActivity", "Exception:: "+e.getMessage());
+                            Log.e("isBound", isBound + "");
+                        } catch (Exception e) {
+                            Log.e("HomeActivity", "Exception:: " + e.getMessage());
                         }
                     } else {
                         if (!mBluetoothLeService.initialize())
@@ -427,7 +523,7 @@ public class HomeActivity extends AppCompatActivity {
                         Log.e("stopScan", "stopped");
                         return;
                     } catch (Exception e) {
-                        Log.e("stopScan", "error"+e.getMessage());
+                        Log.e("stopScan", "error" + e.getMessage());
                     }
                 }
             } else {
@@ -441,7 +537,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onDestroy();
 
         disconnectGattServer();
-        Log.e("HomeActivity", "onDestroy, isBound:: "+isBound);
+        Log.e("HomeActivity", "onDestroy, isBound:: " + isBound);
         Intent intent = new Intent(getApplicationContext(), BluetoothLeService.class);
         if (isBound) mBluetoothLeService.onUnbind(intent);
     }
@@ -461,10 +557,11 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onScanFailed(int errorCode) {}
+        public void onScanFailed(int errorCode) {
+        }
 
         private void processResult(final ScanResult result) {
-            Log.e("Stop Scan", result+"");
+            Log.e("Stop Scan", result + "");
         }
     };
 
@@ -486,9 +583,9 @@ public class HomeActivity extends AppCompatActivity {
             Log.e("action", action);
 
             device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-            if (device.getBondState()==BluetoothDevice.BOND_NONE) {
+            if (device.getBondState() == BluetoothDevice.BOND_NONE) {
                 Log.e("BT", "BOND_NONE");
-            } else if (device.getBondState()==BluetoothDevice.BOND_BONDED) {
+            } else if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
                 Log.e("bondedState?!", "BOND_BONDED");
                 //finish();
             }
@@ -503,7 +600,7 @@ public class HomeActivity extends AppCompatActivity {
             Date date = new Date(now);
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
             String getTime = sdf.format(date);
-            Log.e("BT Time", "serviceConnected: "+getTime);
+            Log.e("BT Time", "serviceConnected: " + getTime);
             Log.e("mScanCallback", "onServiceConnected / init");
             mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
             if (!mBluetoothLeService.initialize())
@@ -531,7 +628,7 @@ public class HomeActivity extends AppCompatActivity {
     public static void disconnectGattServer() {
         Log.e("disconnectGattServer", "init / HOme");
         isConn = false;
-        if( mBluetoothGatt != null ) {
+        if (mBluetoothGatt != null) {
             //gattCharacteristics = null;
             //characteristics = null;
             mBluetoothGatt.disconnect();
@@ -549,6 +646,24 @@ public class HomeActivity extends AppCompatActivity {
             case REQUEST_BLUETOOTH:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.e("PermissionResult", "permission granted");
+
+                    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    } else {
+                        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, gpsLocationListener);
+                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, gpsLocationListener);
+                    }
+
                     discoveryStart();
                 } else {//거부했을 경우
                     Toast toast = Toast.makeText(this, "기능 사용을 위한 권한 동의가 필요합니다.", Toast.LENGTH_SHORT);

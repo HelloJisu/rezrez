@@ -3,6 +3,7 @@ package com.reziena.user.reziena_1;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -16,27 +17,26 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.util.*;
 import android.view.*;
 import android.widget.*;
 import com.bumptech.glide.*;
 
-import org.apache.http.*;
-import org.apache.http.client.*;
-import org.apache.http.client.entity.*;
-import org.apache.http.client.methods.*;
-import org.apache.http.impl.client.*;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.io.*;
 import java.lang.reflect.Field;
 import java.net.*;
 import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static java.net.Authenticator.RequestorType.SERVER;
 
 public class Signin2Activity extends AppCompatActivity {
     TextView okay;
@@ -50,19 +50,20 @@ public class Signin2Activity extends AppCompatActivity {
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_IMAGE = 2;
     LinearLayout signin;
-    private Uri mImageCaptureUri;
+    //private Uri mImageCaptureUri;
     private int id_view;
-    CircleImageView profile;
+    //CircleImageView profile;
     String month, year, genderstring, countrystring, day;
     public static Activity signin2;
     HomeActivity homeactivity = (HomeActivity)HomeActivity.homeactivity;
-    String namestring, idstring, profileurl;
+    String namestring, profileurl;
+    static String idstring;
     private static final String DEFAULT_LOCAL = "Portugal";
     public int yearint, dayint, monthint;
     Drawable alphasignin;
     int serverResponseCode = 0;
     private static final int REQUEST_STORAGE = 1;
-    String nameP, pathP;
+    //String nameP, pathP;
 
     Bitmap photo;
 
@@ -76,10 +77,10 @@ public class Signin2Activity extends AppCompatActivity {
 
         namestring = subintent.getExtras().getString("name");
         idstring = subintent.getExtras().getString("id");
-        profileurl = subintent.getExtras().getString("profile");
+        //profileurl = subintent.getExtras().getString("profile");
         password = subintent.getExtras().getString("password");
         name = findViewById(R.id.name);
-        profile = findViewById(R.id.signinprofile);
+        //profile = findViewById(R.id.signinprofile);
         signin = findViewById(R.id.signin_signin2);
 
         alphasignin = signin.getBackground();
@@ -134,6 +135,37 @@ public class Signin2Activity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+        //Log.e("SigininActivity: ", "getUserCountry:: " + getUserCountry(getApplicationContext()));
+
+        /*try {
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        } catch (Exception e) {
+            Log.e("signin Exception::", e.getMessage());
+        }
+
+        final LocationListener gpsLocationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+
+                String provider = location.getProvider();
+                double longitude = location.getLongitude();
+                double latitude = location.getLatitude();
+                double altitude = location.getAltitude();
+
+                Log.e("위치정보: ", provider+" /위도: "+longitude+" /경도: "+latitude+" /고도: "+altitude);
+
+            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+
+            public void onProviderEnabled(String provider) {
+            }
+
+            public void onProviderDisabled(String provider) {
+            }
+        };*/
 
         Spinner couuntry = findViewById(R.id.country);
         ArrayAdapter countryarray = ArrayAdapter.createFromResource(this,
@@ -223,11 +255,11 @@ public class Signin2Activity extends AppCompatActivity {
         }
 
         if(profileurl==null){
-            profile.setImageResource(R.drawable.no_profile);
+            //profile.setImageResource(R.drawable.no_profile);
         }
 
         if(profileurl!=null){
-            Glide.with(this).load(profileurl).into(profile);
+            //Glide.with(this).load(profileurl).into(profile);
         }
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -248,7 +280,7 @@ public class Signin2Activity extends AppCompatActivity {
                         String saveName = name.getText().toString();
                         String birth = yearint+"/"+monthint+"/"+dayint;
 
-                        if (mImageCaptureUri!=null) {
+                        /*if (mImageCaptureUri!=null) {
                             nameP = getName(mImageCaptureUri);
                             pathP = getPath(mImageCaptureUri);
                         } else {
@@ -258,7 +290,7 @@ public class Signin2Activity extends AppCompatActivity {
                         Log.e("nameP==", nameP);
                         Log.e("pathP==", pathP);
                         Long tsLong = System.currentTimeMillis() / 1000;
-                        profileurl = "/uploads/"+"IMG_" + tsLong.toString()+".JPEG";
+                        profileurl = "/uploads/"+"IMG_" + tsLong.toString()+".JPEG";*/
 
                         SharedPreferences sp_userName = getSharedPreferences("userName", MODE_PRIVATE);
                         SharedPreferences sp_userID = getSharedPreferences("userID", MODE_PRIVATE);
@@ -276,14 +308,15 @@ public class Signin2Activity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
 
-                        if (mImageCaptureUri!=null) {
+                        /*if (mImageCaptureUri!=null) {
                             uploadProfile up = new uploadProfile();
                             up.execute(mImageCaptureUri.getPath());
                         } else {
                             profileurl = "no_profile";
-                        }
+                        }*/
+
                         setData task = new setData();
-                        task.execute("http://"+ HomeActivity.IP_Address +"/saveUser.php", idstring, password, saveName, genderstring, birth, profileurl, countrystring);
+                        task.execute("http://"+ HomeActivity.IP_Address +"/saveUsers.php", idstring, password, saveName, genderstring, birth, countrystring);
                         break;
                     case R.id.signinprofile:
                         checkPermissions();
@@ -293,11 +326,46 @@ public class Signin2Activity extends AppCompatActivity {
             }
         };
         signin.setOnClickListener(onClickListener);
-        profile.setOnClickListener(onClickListener);
+        //profile.setOnClickListener(onClickListener);
+    }
+
+    private static String encryptSHA512(String target) {
+        MessageDigest sh = null;
+        try {
+            sh = MessageDigest.getInstance("SHA-512");
+        }
+        catch (NoSuchAlgorithmException e) {
+            Log.e("encryptSHA512", "Exception:: "+e.getMessage());
+        }
+        sh.update(target.getBytes());
+
+        StringBuffer sb = new StringBuffer();
+
+        for (byte b:sh.digest())
+            sb.append(Integer.toHexString(0xff & b));
+        return sb.toString();
+    }
+
+    public static String getUserCountry(Context context) {
+        try {
+            final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            final String simCountry = tm.getSimCountryIso();
+            if (simCountry != null && simCountry.length() == 2) { // SIM country code is available
+                return simCountry.toLowerCase(Locale.US);
+            }
+            else if (tm.getPhoneType() != TelephonyManager.PHONE_TYPE_CDMA) { // device is not 3G (would be unreliable)
+                String networkCountry = tm.getNetworkCountryIso();
+                if (networkCountry != null && networkCountry.length() == 2) { // network country code is available
+                    return networkCountry.toLowerCase(Locale.US);
+                }
+            }
+        }
+        catch (Exception e) { }
+        return null;
     }
 
     class setData extends AsyncTask<String, Void, String> {
-        String id, pw, name, gender, birth, profile, country;
+        String id, pw, name, gender, birth, country, city;
 
         @Override
         protected void onPostExecute(String result) {
@@ -322,12 +390,13 @@ public class Signin2Activity extends AppCompatActivity {
             name = params[3];
             gender = params[4];
             birth = params[5];
-            profile = params[6];
-            country = params[7];
+            country = params[6];
+            //city = params[7];
+            city = "Seoul";
 
             if (pw==null) pw="social";
 
-            String postParameters = "id="+id+"&pw="+pw+"&name="+name+"&gender="+gender+"&birth="+birth+"&profile="+profile+"&country="+country;
+            String postParameters = "id="+id+"&pw="+encryptSHA512(pw+id)+"&name="+name+"&gender="+gender+"&birth="+birth+"&country="+country+"&city="+city;
             Log.e("sign-postParameters", postParameters);
 
             try {
@@ -343,7 +412,7 @@ public class Signin2Activity extends AppCompatActivity {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 outputStream.write(postParameters.getBytes("UTF-8"));
                 outputStream.flush();
-                outputStream.close();
+                //outputStream.close();
 
                 // response
                 InputStream inputStream;
@@ -396,7 +465,7 @@ public class Signin2Activity extends AppCompatActivity {
         startActivityForResult(intent, PICK_FROM_ALBUM);
     }
 
-    @SuppressLint("NewApi")
+    /*@SuppressLint("NewApi")
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
@@ -431,13 +500,14 @@ public class Signin2Activity extends AppCompatActivity {
                 final Bundle extras = data.getExtras();
 
                 if(extras!=null){
-                    photo = extras.getParcelable("data");
-                    profile.setImageBitmap(photo);
+                    //photo = extras.getParcelable("data");
+                    //profile.setImageBitmap(photo);
                     break;
                 }
             }
         }
     } // end of onActivityResult
+    */
 
     private String hashMapToUrl(HashMap<String, String> params) throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
